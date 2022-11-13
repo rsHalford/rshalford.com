@@ -1,0 +1,55 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: "How to improve the Arch Linux package manager"
+pubDate: "2021-08-10"
+description: "With a fresh install of Arch Linux, comes a single threaded, colourless looking package manager. Learn how to make the two small changes necessary to correct this."
+author: "richard"
+image:
+tags: ["archlinux", "linux"]
+---
+Pacman is the package manager for Arch Linux. And out of the box, it's just black and white, and single threaded all over. But, even if you're one to tout "I use Arch btw." and what it's like living on the bleeding edge with it's rolling release updates. You'll likely still want to make those updates take as little time as possible, with important information being colour highlighted.
+
+Luckily pacman comes with a way to make both of these the case, with no more than an edit to it's configuration file.
+
+___
+
+## Colour Output
+
+To make sure pacman produces a colourful output in the terminal. Open up `/etc/pacman.conf` in your editor of choice, with `sudo`/`doas` privileges. Then simply delete the **_#_** before `Color`, under the `# Misc options` sub-heading.
+
+
+```sh
+  # Misc options
+  #UseSyslog
+- #Color
++ Color
+  #TotalDownload
+  CheckSpace
+  #VerbosePkgLists
+```
+
+Now save and exit, and the next time you update your system packages, pacman will use the same colour scheme as your terminal/tty.
+
+___
+
+## Multi-threaded Performance
+
+With the release of Pacman v6.0.0, comes the ability to have parallel package downloads. Meaning all of your small system packages can be downloaded, all whilst getting the latest Linux kernel.
+
+Because of reasons beyond the scope of this article (_read: I don't feel like writing about it_), this **shouldn't** throttle the speed of each download stream. As the Arch repository mirrors you're getting your package updates from, probably aren't sending packets of data to you as fast as your network connection can handle. Making parallel downloads only seem like a good thing. With resulting average install times that are **less** than just downloading package updates sequentially.
+
+To add this latest feature, you will have to make the following edit, just like with the `Color` option mentioned above.
+
+```sh
+  # Misc options
+  #UseSyslog
+  Color
+  #TotalDownload
+  CheckSpace
+  #VerbosePkgLists
++ ParallelDownloads = 5
+```
+
+If your install of Arch Linux comes after the release of Pacman v6.0.0, you should find that `ParallelDownloads` option is already there. And just needs to be _'un-commented'_.
+
+The number you assign to `ParallelDownloads` denotes how many download streams you want to enable. By default, this value is set equal to 5, but can be changed depending on your system's hardware. A rule of thumb being adopted seems to be to match the number of threads on your CPU. But, you may find that testing above this may be beneficial, without resulting in performance drops.
