@@ -1,0 +1,165 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: "Setting up virtual machines on Arch Linux"
+pubDate: "2021-08-27"
+description: "Linux comes with virtualisation, with the included Kernel-based Virtual Machine (KVM) module. This tutorial goes through the simple steps needed to setup virtual machine management on Arch Linux."
+author: "richard"
+image:
+  url: "https://i.imgur.com/IHu9TM8.png"
+  alt: "The virt-manager virtual machine showing GRUB menu options for Debian 11"
+tags: ["archlinux", "linux", "sysadmin"]
+---
+Virtualisation is an incredibly useful tool, even for personal use. Personally, I use virtual machines for different purposes: testing out operating systems or Linux distributions without having to install them to bare metal; install my own software to test compatibility; try out the latest hyped about desktop environment or window manager. And as time goes on, I find more things to add to the list of uses.
+
+> Whilst typing this up, I read about how I can use a virtual Debian install to install (not live load) a Debian distribution onto a USB drive. So I can carry around an operating system with persistent storage, and plug it into any PC.
+
+**Note**: This article will be focussing on how to run virtual machines on ***Arch Linux***.
+
+---
+
+## KVM
+
+Kernel-based Virtual Machine (KVM), is a hypervisor - an _emulator_ or sorts - that comes baked into the Linux kernel. So if you run Linux, you will have this module included. And what this means to you the user is that you can quickly setup up your system for managing VMs.
+
+But even if KVM is included in the Linux kernel installed on your computer, you first need to check whether your CPU has virtualisation support.
+
+```sh
+$ LC_ALL=C lscpu | grep Virtualization
+```
+
+Depending on which team you opted to support, the output will vary, but either output will confirm you support KVM.
+
+AMD
+
+```sh
+Virtualization:                  AMD-V
+```
+
+Intel
+
+```sh
+Virtualization:                  VT-x
+```
+
+With the confirmation that virtualisation is supported, you will probably want to install some packages to make installing and managing VMs a lot more user friendly.
+
+## Virtualisation made easy
+
+```sh
+$ sudo pacman -S qemu libvirt iptables-nft dnsmasq virt-manager
+```
+
+> All the below installations in one.
+
+### QEMU
+
+QEMU is an emulator and virtualiser that can use KVM for virtualisation, by using Hardware-assisted virtualisation with your CPU. But with the `qemu` package alone, you will not be able to use a GUI to manage your VMs, or make their sessions have persistent settings. Meaning that to make things run, you will need to use the command-line every time.
+
+```sh
+$ sudo pacman -S qemu
+```
+
+### Libvirt
+
+To overcome these hurdles, it is recommended to install `libvirt`, a meta-package that contains the tools for managing your VMs in a convenient way. To do this package justice in knowing what it provides, I'd recommend viewing it's [Arch Wiki page](https://wiki.archlinux.org/title/Libvirt).
+
+```sh
+$ sudo pacman -S libvirt
+```
+
+#### Libvirt daemon
+
+Next you will need to enable and start the libvirt daemon. This will create some necessary symlinks and also enable the `virtlogd.service`.
+
+```sh
+$ sudo systemctl enable libvirtd
+Created symlink /etc/systemd/system/multi-user.target.wants/libvirtd.service → /usr/lib/systemd/system/libvirtd.service.
+Created symlink /etc/systemd/system/sockets.target.wants/virtlockd.socket → /usr/lib/systemd/system/virtlockd.socket.
+Created symlink /etc/systemd/system/sockets.target.wants/virtlogd.socket → /usr/lib/systemd/system/virtlogd.socket.
+Created symlink /etc/systemd/system/sockets.target.wants/libvirtd.socket → /usr/lib/systemd/system/libvirtd.socket.
+Created symlink /etc/systemd/system/sockets.target.wants/libvirtd-ro.socket → /usr/lib/systemd/system/libvirtd-ro.socket.
+```
+
+Then just start the service.
+
+```sh
+$ sudo systemctl start libvirtd
+```
+
+#### Libvirt group
+
+To allow non-sudo user access to the newly enabled libvirt daemon, you should now add the necessary users to the `libvirt` user group.
+
+```sh
+$ sudo usermod -aG libvirt richard
+```
+
+### Internet
+
+You'll probably want to add internet connectivity to your future VM instances. Allowing you to browse the web or download and install software on another operating system.
+
+Typically for personal use, you would want to create a virtual network that uses on the host system's network connectivity. This means installing two more packages. `iptables-nft` to replace `iptables` - that comes with a base install of Arch Linux - and `dnsmasq`, a DNS forwarder and DHCP server.
+
+```sh
+$ sudo pacman -S iptables-nft dnsmasq
+```
+
+### Virtual Machine Manager
+
+The GUI client I'd recommend using to manage your VMs is Virtual Machine Manager, or simply virt-manager. A brilliant bit of free software developed by Red Hat (they also help develop libvirt).
+
+This program allows the user to; create, start, edit, pause and stop VMs. Whilst providing performance metrics for individual VMs.
+
+```sh
+$ sudo pacman -S virt-manager
+```
+
+---
+
+## Creating a virtual machine
+
+Once all the above steps have been completed, you may need to reboot your system. Then to create a VM, find and download the operating system you want to try out. And start the virt-manager application.
+
+At first you'll be greeted with an empty list of VMs. To create a new VM, click on the monitor with the star and play button in the top left.
+
+> File > New Virtual Machine
+
+![Open virt-manager](https://i.imgur.com/sbivrYj.png)
+
+Then you will be greeted with a VM creation wizard. For this quick run-through I'm going to create a VM for Debian 11 "Bullseye", from a local install media.
+
+![Create a new virtual machine](https://i.imgur.com/apQl8xa.png)
+
+Select the downloaded ISO and find the operating system, if virt-manager does not automatically find it for you. 
+
+![Select installation media](https://i.imgur.com/MN0HJt6.png)
+
+> As Debian 11 is new, I had to choose `Debian testing` manually.
+
+Then choose how much system memory and the number of CPUs you want to give whilst the VM runs.
+
+![Memory and CPU allocation](https://i.imgur.com/r8OjVrS.png)
+
+Then do the same with how much storage you want to provide. This won't automatically take up the given amount. But, sets a cap on the total amount you have made available to it.
+
+![Storage allocation](https://i.imgur.com/HoXtE29.png)
+
+Finally, name your VM and select the network solution for it. This tutorial assumed that you would want to provide a virtual network, so that's what has been selected here.
+
+![Name the virtual machine and select virtual network](https://i.imgur.com/jyWpkZb.png)
+
+Now the new VM will be listed.
+
+![New virtual machine will now be listed in virt-manager](https://i.imgur.com/IIKKkDD.png)
+
+To start it, select the VM and click on the _play_ button to power it on. Then select _Open_ to view it.
+
+![Debian 11 "Bullseye" running inside a virtual machine](https://i.imgur.com/u2sJSxg.png)
+
+---
+
+If you've made it this far, thanks for reading!
+
+I hope this article has been helpful in understanding some of the basics of virtualisation on Linux. How to set up your system and manage VMs with KVM, QEMU, libvirt and Virtual Machine Manager. And the steps needed to create a new VM using virt-manager.
+
+If you've got any questions about this process, or think I might have missed something, just ask below.
