@@ -1,4 +1,9 @@
 ---
+interface Props {
+	title: string;
+	url: string;
+	published: string;
+}
 const { title, url, published } = Astro.props;
 ---
 <li><a href={url}>{title} - {published}</a></li>

@@ -7,6 +7,6 @@ const pageTitle = "Blog";
 <BaseLayout pageTitle={pageTitle}>
 	<p>This is where I will post about my journey learning Astro.</p>
 	<ul>
-		{allPosts.map((post) => <Post url={post.url} title={post.frontmatter.title} published={post.frontmatter.pubDate} />)}
+		{allPosts.map((post: any) => <Post url={post.url} title={post.frontmatter.title} published={post.frontmatter.pubDate} />)}
 	</ul>
 </BaseLayout>
