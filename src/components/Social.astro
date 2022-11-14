@@ -1,4 +1,9 @@
 ---
+interface Props {
+  platform: string;
+  tld: string;
+  username: string;
+}
 const { platform, tld, username } = Astro.props;
 ---
 <a href={`https://www.${platform}.${tld}/${username}`} target="_blank">{platform}</a>
