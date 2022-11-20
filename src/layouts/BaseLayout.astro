@@ -7,19 +7,25 @@ const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<Header />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta
+      name="keywords"
+      content="blog, articles, portfolio, tutorials, information, linux, technology, programming, code"
+    />
+    <meta name="description" content="Personal website" />
+    <meta name="author" content="Richard Halford" />
+    <link rel="me" href="https://mastodon.social/@rshalford" />
+  </head>
+  <body>
+    <Header />
 
-		<h1>{pageTitle}</h1>
-		<slot />
+    <slot />
 
-		<Footer />
-	</body>
+    <Footer />
+  </body>
 </html>
