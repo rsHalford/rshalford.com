@@ -6,7 +6,9 @@ description: "Learn how to remove the Windows operating system from Dual-Boot wi
 author: "richard"
 image:
 tags: ["cli", "linux", "sysadmin"]
+draft: false
 ---
+
 Whenever anyone decides to take a dip into the world of Linux, coming from Windows. It's not normally as a straight swap from operating system to operating system. And the distribution you land on using is normally set up in dual-boot.
 
 That's how I got started. Windows paired up with Linux Mint.
@@ -53,7 +55,6 @@ Device         Start       End   Sectors   Size Type
 /dev/sda3     239616 975736384 975496769 465.2G Microsoft basic data
 /dev/sda4  975736832 976771071   1034240   505M Windows recovery environment
 ```
-
 
 ### List partitions using `lsblk -p`
 
@@ -231,11 +232,11 @@ UUID=4149ff1e-bd86-4d4f-940f-c79cc910ded0       /mnt/games      ext4       defau
 
 #### What we did:
 
-  - Used the default of using the file system UUIDs to denote the partition identity.
-  - Assigned the mount point directory `/mnt/games`.
-  - Given the _default_ options for the partition.
-  - Kept dump as 0 to stop automatically backing up the entire drive if you use `dump` (not always pre-installed).
-  - Given a pass priority of 2, as the root directory should be checked first at boot time.
+- Used the default of using the file system UUIDs to denote the partition identity.
+- Assigned the mount point directory `/mnt/games`.
+- Given the _default_ options for the partition.
+- Kept dump as 0 to stop automatically backing up the entire drive if you use `dump` (not always pre-installed).
+- Given a pass priority of 2, as the root directory should be checked first at boot time.
 
 ### Mount without rebooting
 
@@ -276,11 +277,3 @@ done
 ```
 
 Now when you next restart your system, Windows will no longer be an option in the boot menu.
-
----
-
-If you've made it this far, thanks for reading!
-
-I hope this article has been helpful in understanding some of the utilities found on Linux, such as `fdisk` and `lsblk`. And that you now understand the file system of your own machine bit better too.
-
-If you've got any questions about this process, or think I might have missed something, just ask below.
