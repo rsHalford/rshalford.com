@@ -3,6 +3,7 @@ import { remarkReadingTime } from "./src/scripts/remark-reading-time.mjs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify/functions";
+import image from "@astrojs/image";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +21,10 @@ export default defineConfig({
       drafts: true,
     }),
     sitemap(),
+    image({
+      logLevel: "warn",
+      serviceEntryPoint: "@astrojs/image/sharp",
+    }),
   ],
   output: "server",
   adapter: netlify(),
