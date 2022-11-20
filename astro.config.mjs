@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config';
-import { remarkReadingTime } from './src/scripts/remark-reading-time.mjs';
+import { defineConfig } from "astro/config";
+import { remarkReadingTime } from "./src/scripts/remark-reading-time.mjs";
 
-import mdx from '@astrojs/mdx';
+import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   markdown: {
@@ -12,7 +12,9 @@ export default defineConfig({
       theme: "rose-pine-moon",
     },
   },
-  integrations: [mdx({
-    drafts: true,
-  })],
+  integrations: [
+    mdx({
+      drafts: true,
+    }),
+  ],
 });

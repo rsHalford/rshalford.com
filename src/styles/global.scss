@@ -59,7 +59,7 @@ $rhColor: #b71c1c;
 @font-face {
   font-family: "JetBrains";
   src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff"),
-       url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+    url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -114,17 +114,18 @@ h6 {
 }
 
 a {
-	text-decoration: none;
-	font-weight: bold;
-	color: var(--foam);
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--foam);
 
-	&:hover, &:focus {
-		text-decoration: underline;
-	}
-	
-	&:visited {
-		color: var(--iris);
-	}
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--iris);
+  }
 }
 
 pre {
