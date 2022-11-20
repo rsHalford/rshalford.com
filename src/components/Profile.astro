@@ -1,9 +1,15 @@
 ---
+import { Image } from "@astrojs/image/components";
+import profileImage from "@assets/profile.webp";
+import publicKey from "@assets/publickey.txt";
 ---
 
 <aside>
-  <img
-    src="/assets/profile.webp"
+  <Image
+    class="profile"
+    src={profileImage}
+    width={192}
+    height={238.45}
     alt="Profile picture: a pre-school headshot of me wearing a Thomas the Tank Engine knitted jumper in front of a blue cloud background"
   />
   <dl class="locations">
@@ -29,9 +35,7 @@
     </dd>
     <dt>pgp</dt>
     <dd>
-      <a class="pgp" href="/assets/publickey.txt" target="_blank"
-        >5C203EA921A470C0</a
-      >
+      <a class="pgp" href={publicKey} target="_blank">5C203EA921A470C0</a>
     </dd>
   </dl>
   <small>
@@ -50,10 +54,9 @@
     margin-top: 1rem;
     width: 17rem;
 
-    img {
+    .profile {
       grid-area: profile;
       display: block;
-      width: 12rem;
       margin: 0 auto;
       border-radius: 0.5rem;
       filter: drop-shadow(0 0.2rem 0.1rem #1f1d2e);
