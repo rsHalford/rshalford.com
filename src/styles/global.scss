@@ -1,0 +1,177 @@
+// Rose Pine Dawn
+:root {
+  --base: rgb(250, 244, 237);
+  --surface: rgb(255, 250, 243);
+  --overlay: rgb(242, 233, 222);
+  --muted: rgb(152, 147, 165);
+  --subtle: rgb(121, 117, 147);
+  --text: rgb(87, 82, 121);
+  --love: rgb(180, 99, 122);
+  --gold: rgb(234, 157, 52);
+  --rose: rgb(215, 130, 126);
+  --pine: rgb(40, 105, 131);
+  --foam: rgb(86, 148, 159);
+  --iris: rgb(144, 122, 169);
+  --hl-low: rgb(244, 237, 232);
+  --hl-med: rgb(223, 218, 217);
+  --hl-high: rgb(206, 202, 205);
+}
+
+// Rose Pine Moon
+.dark {
+  --base: rgb(35, 33, 54);
+  --surface: rgb(42, 39, 63);
+  --overlay: rgb(57, 53, 82);
+  --muted: rgb(110, 106, 134);
+  --subtle: rgb(144, 140, 170);
+  --text: rgb(224, 222, 244);
+  --love: rgb(235, 111, 146);
+  --gold: rgb(246, 193, 119);
+  --rose: rgb(234, 154, 151);
+  --pine: rgb(62, 143, 176);
+  --foam: rgb(156, 207, 216);
+  --iris: rgb(196, 167, 231);
+  --hl-low: rgb(42, 40, 62);
+  --hl-med: rgb(68, 65, 90);
+  --hl-high: rgb(86, 82, 110);
+}
+
+// Brand Colors
+$twitter: #1da1f2;
+$linkedin: #2867b2;
+$gitlab: #fc6d26;
+$rhColor: #b71c1c;
+
+@font-face {
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gelasio";
+  src: url("/fonts/Gelasio-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrains";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff"),
+       url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Fonts
+$sans: "Lexend", "Open Sans", sans-serif;
+$serif: "Gelasio", "Vollkorn", serif;
+$code: "JetBrains Mono", monospace;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /*
+  margin: 0;
+  padding: 0;
+  */
+}
+
+/*
+*::-webkit-scrollbar {
+  display: none;
+}
+*/
+
+body {
+  height: 100vh;
+  max-width: 920px;
+  padding: 1rem;
+  margin: 0 auto;
+  font-size: 16px;
+  font-family: $sans;
+  line-height: 1.5;
+  background-color: var(--base);
+  color: var(--text);
+  scroll-behavior: smooth;
+  /*scrollbar-width: none;*/
+  z-index: 0;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.7rem;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 2rem 0 0;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+	color: var(--foam);
+
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
+	
+	&:visited {
+		color: var(--iris);
+	}
+}
+
+pre {
+  border: 0.15rem solid var(--iris);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+code {
+  color: var(--rose);
+  font-family: $code;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+ul {
+  margin: MIN(2.13vw, 16px) 0 MIN(2.13vw, 16px) MIN(3.2vw, 24px);
+  padding-left: MIN(3.2vw, 24px);
+
+  li {
+    margin-bottom: MIN(2.13vw, 16px);
+  }
+}
+
+ol {
+  margin: MIN(2.13vw, 16px) 0 MIN(2.13vw, 16px) MIN(3.2vw, 24px);
+  padding-left: MIN(3.2vw, 24px);
+
+  li {
+    margin-bottom: MIN(2.13vw, 16px);
+  }
+}
+
+blockquote {
+  margin: 0 0 MIN(2vw, 15px) 0;
+  padding-left: MIN(3.2vw, 24px);
+  border-left: MIN(1.3vw, 9.75px) solid var(--love);
+}
+
+hr {
+  height: 0.2rem;
+  margin: 2rem 0;
+  background-color: var(--hl-high);
+  border: 0;
+}
