@@ -1,8 +1,58 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Post from "@components/Post.astro";
+import Profile from "@components/Profile.astro";
 
-const pageTitle = "Home";
+const allPosts = await Astro.glob("../pages/posts/*.{md,mdx}");
+const nonDraft = allPosts.filter((post) => !post.frontmatter.draft);
+const sortedPosts = nonDraft.sort((a, b): any => {
+  return Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate);
+});
+
+const pageTitle = "Richard Halford's blog";
 ---
+
 <BaseLayout pageTitle={pageTitle}>
-	<h2>/subtitle/</h2>
+  <main>
+    <section class="blog">
+      <h1>{pageTitle}</h1>
+      <a class="rss" href="/rss.xml" target="_blank">rss</a>
+      {
+        sortedPosts.map((post: any) => (
+          <Post
+            title={post.frontmatter.title}
+            description={post.frontmatter.description}
+            url={post.url}
+            pubDate={post.frontmatter.pubDate}
+          />
+        ))
+      }
+    </section>
+    <Profile />
+  </main>
 </BaseLayout>
+
+<style lang="scss">
+  main {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    min-height: 100vh;
+
+    section {
+      flex-grow: 1;
+
+      .rss {
+        color: var(--gold);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+</style>
