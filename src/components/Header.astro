@@ -1,16 +1,15 @@
 ---
-import Hamburger from "@components/Hamburger.astro";
 import Navigation from "@components/Navigation.astro";
 import ThemeIcon from "@components/ThemeIcon.astro";
 ---
+
 <header>
-	<nav>
-		<Hamburger />
-		<ThemeIcon />
-		<Navigation />
-	</nav>
+  <Navigation />
+  <ThemeIcon />
 </header>
 
-<script>
-	import "../scripts/menu.ts";
-</script>
+<style lang="scss">
+  header {
+    margin-bottom: 1rem;
+  }
+</style>

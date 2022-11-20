@@ -1,8 +1,23 @@
 ---
 ---
-<div class="nav-links">
-	<a href="/">Home</a>
-	<a href="/about/">About</a>
-	<a href="/blog/">Blog</a>
-	<a href="/tags/">Tags</a>
-</div>
+
+<nav>
+  <a class="blog" href="/">blog</a>
+</nav>
+
+<style lang="scss">
+  nav {
+    .blog {
+      color: var(--love);
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding-right: 2rem;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>
