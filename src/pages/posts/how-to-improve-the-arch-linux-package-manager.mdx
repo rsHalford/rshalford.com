@@ -4,19 +4,19 @@ title: "How to improve the Arch Linux package manager"
 pubDate: "2021-08-10"
 description: "With a fresh install of Arch Linux, comes a single threaded, colourless looking package manager. Learn how to make the two small changes necessary to correct this."
 author: "richard"
-image:
 tags: ["archlinux", "linux"]
+draft: false
 ---
+
 Pacman is the package manager for Arch Linux. And out of the box, it's just black and white, and single threaded all over. But, even if you're one to tout "I use Arch btw." and what it's like living on the bleeding edge with it's rolling release updates. You'll likely still want to make those updates take as little time as possible, with important information being colour highlighted.
 
 Luckily pacman comes with a way to make both of these the case, with no more than an edit to it's configuration file.
 
-___
+---
 
 ## Colour Output
 
 To make sure pacman produces a colourful output in the terminal. Open up `/etc/pacman.conf` in your editor of choice, with `sudo`/`doas` privileges. Then simply delete the **_#_** before `Color`, under the `# Misc options` sub-heading.
-
 
 ```sh
   # Misc options
@@ -30,7 +30,7 @@ To make sure pacman produces a colourful output in the terminal. Open up `/etc/p
 
 Now save and exit, and the next time you update your system packages, pacman will use the same colour scheme as your terminal/tty.
 
-___
+---
 
 ## Multi-threaded Performance
 

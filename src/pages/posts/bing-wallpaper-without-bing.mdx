@@ -4,11 +4,10 @@ title: "Bing Wallpaper: Without Bing"
 pubDate: "2021-08-18"
 description: "Learn what it takes to write a shell script that downloads the latest Bing Wallpaper.  Using the core *nix command-line utilities, such as; grep, cut, echo and mkdir, along with the curl."
 author: "richard"
-image:
-  url: "https://i.imgur.com/q2On1px.png"
-  alt: "A Bing daily wallpaper being used as the background image for a browser start page."
 tags: ["api", "cli", "linux", "script"]
+draft: false
 ---
+
 Whilst Microsoft's Bing might not be many people's first choice of search engine. It has always had one thing going for it: daily homepage wallpapers.
 
 But what about if you don't want to use Bing just for their wallpaper's? Because if we're honest with ourselves, that's an odd reason to stick with a search engine. Let alone decide to make it your browser's homepage.
@@ -16,6 +15,7 @@ But what about if you don't want to use Bing just for their wallpaper's? Because
 Or maybe, like me, you're just too lazy and unimaginative to curate your own wallpaper collection. Don't want to keep storage of all those photos. And like the small spice in life that comes from not knowing what's today's wallpaper?
 
 ![Example use of Bing wallpaper as custom browser homepage background](https://i.imgur.com/IVOVfSb.png)
+
 > The reason I wanted to find a way of getting these wallpapers, was to create my own simple browser homepage.
 
 Either way, keep reading on as I'll be going through a small script that will find and download the latest Bing daily wallpaper. Then you can do whatever you'd like with it. And hopefully, you'll learn a bit more about some of the cool things you can achieve from shell scripting!
@@ -53,9 +53,9 @@ This **_shebang_** simply tell the parent shell which interpreter to use when ru
 #!/bin/sh
 ```
 
-> Tells the interpreter to use your system's shell. Typically this will be either *dash* or *bash*.
+> Tells the interpreter to use your system's shell. Typically this will be either _dash_ or _bash_.
 
-<br>
+<br />
 
 Here we're setting the variables to be used for creating the URL of the latest Bing wallpaper.
 
@@ -64,7 +64,7 @@ bing="http://www.bing.com"
 xmlURL="http://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-WW"
 ```
 
-<br>
+<br />
 
 Then we define the location where the image will be saved to, once downloaded. By using the `mkdir` utility, to create the folder at the location defined as `$saveDir`. The `-p` option flag here, is used to make sure all the necessary parent directories up the branch of `bing-wp/` are also created. And finally, the variable `picName` is assigned to create the image file.
 
@@ -74,9 +74,9 @@ mkdir -p $saveDir
 picName="bing.jpg"
 ```
 
-> As every time this script is ran, it will write over the current image. `$XDG_CACHE_HOME` is used to denote the appropriate location for a temporary file, using the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html). It merely represents in most *nix systems, the `~/.cache/` directory.
+> As every time this script is ran, it will write over the current image. `$XDG_CACHE_HOME` is used to denote the appropriate location for a temporary file, using the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html). It merely represents in most \*nix systems, the `~/.cache/` directory.
 
-<br>
+<br />
 
 We can break down this nested and piped variable assignment into more understandable parts.
 
@@ -84,7 +84,7 @@ We can break down this nested and piped variable assignment into more understand
 picURL=$bing$(echo $(curl -s $xmlURL) | grep -oP "<url>(.*)</url>" | cut -d ">" -f 2 | cut -d "<" -f 1)
 ```
 
-<br>
+<br />
 
 Like before, this is simply reassigning Bing's base URL to a variable.
 
@@ -93,7 +93,7 @@ picURL=$bing
 # picURL=http://www.bing.com
 ```
 
-<br>
+<br />
 
 The `curl` command silently, `-s` - meaning without progress or error reporting - goes to the URL address assigned as `xmlURL`, and outputs it's contents.
 
@@ -104,7 +104,7 @@ $(curl -s $xmlURL)
 
 > As an example, this is what that resulting XML looks like, as of writing this article. We'll use it as an example to explain the rest of the script.
 
-<br>
+<br />
 
 Within this long line of XML are the `<url>` and `</url>` tags. Containing the day's Bing wallpaper URL parameters within. To separate this information from the `curl` commands output. We need to pipe that resulting string into `grep`.
 
@@ -117,7 +117,7 @@ grep -oP "<url>(.*)</url>"
 
 > `(.*)` just creates a capturing group of everything between the tags.
 
-<br>
+<br />
 
 Now we just need to remove the `<url>` and `</url>` tags surrounding the resource name and parameters of the image address. This will be done by piping this text through the `cut` command, twice.
 
@@ -133,9 +133,9 @@ cut -d "<" -f 1
 
 > Using the delimiters, `-d`, `">"` and `"<"` to separate the tags from the URL segment. And then selecting the delimiter separated fields, `-f`, to capture the URL.
 
-<br>
+<br />
 
-This snippet of the image URL is then concatenated with the `$bing` variable using `echo`. 
+This snippet of the image URL is then concatenated with the `$bing` variable using `echo`.
 
 ```sh
 picURL=$bing$(echo ...)
@@ -143,7 +143,7 @@ picURL=$bing$(echo ...)
 # picURL=http://www.bing.com/th?id=OHR.PochuckValley_ROW7250263541_1920x1080.jpg&amp;rf=LaDigue_1920x1080.jpg&amp;pid=hp
 ```
 
-<br>
+<br />
 
 Finally, putting this altogether, we can call `curl` to silently `-s` get the image with `$picURL`, now pointing towards the day's image. And direct the output `-o` to the be saved as `bing.jpg`, inside the `$XDG_CACHE_HOME/bing-wp/` directory.
 
@@ -162,7 +162,3 @@ I won't get into how to do it here, but just as a pointer on how you can now tak
 1. .xinitrc
 2. systemd Timer
 3. CronJob
-
----
-
-Hopefully, after reading this tutorial on how to get Bing's latest daily wallpaper, you have learnt something new about shell scripting along the way. Thanks for reading through to the end, and if you've got any questions, ask below!
