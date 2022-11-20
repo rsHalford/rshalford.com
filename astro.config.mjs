@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import netlify from "@astrojs/netlify/functions";
 import image from "@astrojs/image";
+import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
       logLevel: "warn",
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
+    prefetch(),
   ],
   output: "server",
   adapter: netlify(),
