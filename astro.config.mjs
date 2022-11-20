@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import { remarkReadingTime } from "./src/scripts/remark-reading-time.mjs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,4 +21,6 @@ export default defineConfig({
     }),
     sitemap(),
   ],
+  output: "server",
+  adapter: netlify(),
 });

@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   "@astrojs/mdx": ^0.11.6
+  "@astrojs/netlify": ^1.2.1
   "@astrojs/rss": ^1.0.3
   "@astrojs/sitemap": ^1.0.0
   astro: ^1.6.7
@@ -14,6 +15,7 @@ specifiers:
 
 dependencies:
   "@astrojs/mdx": 0.11.6_rollup@3.3.0
+  "@astrojs/netlify": 1.2.1
   "@astrojs/rss": 1.0.3
   "@astrojs/sitemap": 1.0.0
   astro: 1.6.7_sass@1.56.1
@@ -142,6 +144,16 @@ packages:
       micromark-util-types: 1.0.2
       uvu: 0.5.6
       vfile-message: 3.1.2
+    dev: false
+
+  /@astrojs/netlify/1.2.1:
+    resolution:
+      {
+        integrity: sha512-6ISps3454K4Jgf5fUfp2IjDQ19w5rgRJcy1BxV+Ke1BE7lraRdqg+Ywp0rytJz0jNbw5vz5gvajMZtTffHeA8w==,
+      }
+    dependencies:
+      "@astrojs/webapi": 1.1.1
+      esbuild: 0.14.54
     dev: false
 
   /@astrojs/prism/1.0.2:
