@@ -1,9 +1,30 @@
 ---
 interface Props {
-	title: string;
-	url: string;
-	published: string;
+  title: string;
+  description?: string;
+  url: string;
+  pubDate: string;
 }
-const { title, url, published } = Astro.props;
+const { title, description, url, pubDate } = Astro.props;
 ---
-<li><a href={url}>{title} - {published}</a></li>
+
+<div class="post">
+  <a href={url}>{title}</a>
+  <p class="date">{pubDate}</p>
+  <p class="description">{description}</p>
+</div>
+
+<style lang="scss">
+  .post {
+    .date {
+      font-size: 0.9rem;
+      margin: 0;
+      color: var(--subtle);
+    }
+
+    .description {
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+  }
+</style>

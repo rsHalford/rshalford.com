@@ -1,0 +1,86 @@
+---
+---
+
+<aside>
+  <img
+    src="/assets/profile.webp"
+    alt="Profile picture: a pre-school headshot of me wearing a Thomas the Tank Engine knitted jumper in front of a blue cloud background"
+  />
+  <dl class="locations">
+    <dt>email</dt>
+    <dd>
+      <a class="email" href="mailto:richard@rshalford.com" target="_blank"
+        >richard@rshalford.com</a
+      >
+    </dd>
+    <dt>fediverse</dt>
+    <dd>
+      <a
+        class="fediverse"
+        href="https://mastodon.social/@rshalford"
+        target="_blank">mastodon.social</a
+      >
+    </dd>
+    <dt>source</dt>
+    <dd>
+      <a class="source" href="https://github.com/rsHalford" target="_blank"
+        >rsHalford</a
+      >
+    </dd>
+    <dt>pgp</dt>
+    <dd>
+      <a class="pgp" href="/assets/publickey.txt" target="_blank"
+        >5C203EA921A470C0</a
+      >
+    </dd>
+  </dl>
+  <small>
+    <p>
+      A self-taught software developer who is interested in using Go and Python
+      for developing applications across all platforms. With experience
+      scripting in Bash, creating apps with Flutter, designing frontends with
+      JavaScript. I'm mostly interested in learning new languages and
+      development tools.
+    </p>
+  </small>
+</aside>
+
+<style lang="scss">
+  aside {
+    margin-top: 1rem;
+    width: 17rem;
+
+    img {
+      grid-area: profile;
+      display: block;
+      width: 12rem;
+      margin: 0 auto;
+      border-radius: 0.5rem;
+      filter: drop-shadow(0 0.2rem 0.1rem #1f1d2e);
+    }
+
+    .locations {
+      grid-area: locations;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 0.2rem 1rem;
+      font-size: 0.9rem;
+      margin-top: 1.2rem;
+
+      dd {
+        margin: 0;
+      }
+    }
+
+    small > p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  }
+
+  @media screen and (max-width: 636px) {
+    aside {
+      display: none;
+    }
+  }
+</style>
