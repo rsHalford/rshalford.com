@@ -4,6 +4,7 @@ specifiers:
   "@astrojs/image": ^0.11.6
   "@astrojs/mdx": ^0.11.6
   "@astrojs/netlify": ^1.2.1
+  "@astrojs/prefetch": ^0.1.1
   "@astrojs/rss": ^1.0.3
   "@astrojs/sitemap": ^1.0.0
   astro: ^1.6.7
@@ -19,6 +20,7 @@ dependencies:
   "@astrojs/image": 0.11.6_sharp@0.31.2
   "@astrojs/mdx": 0.11.6_rollup@3.3.0
   "@astrojs/netlify": 1.2.1
+  "@astrojs/prefetch": 0.1.1
   "@astrojs/rss": 1.0.3
   "@astrojs/sitemap": 1.0.0
   astro: 1.6.7_sass@1.56.1
@@ -187,6 +189,15 @@ packages:
     dependencies:
       "@astrojs/webapi": 1.1.1
       esbuild: 0.14.54
+    dev: false
+
+  /@astrojs/prefetch/0.1.1:
+    resolution:
+      {
+        integrity: sha512-+XZcjivPHTo9thQshDWKnnORHJ1dE6odIzhmKHac2ptwla092eohkiJw7Y31+PYmuJkc3Jp+3AawuCvfqCnQ2Q==,
+      }
+    dependencies:
+      throttles: 1.0.1
     dev: false
 
   /@astrojs/prism/1.0.2:
@@ -5360,6 +5371,14 @@ packages:
       fs-constants: 1.0.0
       inherits: 2.0.4
       readable-stream: 3.6.0
+    dev: false
+
+  /throttles/1.0.1:
+    resolution:
+      {
+        integrity: sha512-fab7Xg+zELr9KOv4fkaBoe/b3L0GMGLd0IBSCn16GoE/Qx6/OfCr1eGNyEcDU2pUA79qQfZ8kPQWlRuok4YwTw==,
+      }
+    engines: { node: ">=6" }
     dev: false
 
   /tiny-glob/0.2.9:
