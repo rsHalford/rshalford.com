@@ -1,0 +1,45 @@
+---
+interface Props {
+  tags: Array<string>;
+}
+const { tags } = Astro.props;
+---
+
+<div class="tags">
+  <h3>Tags</h3>
+  <div class="list">
+    {tags.map((tag: string) => <a href={`/tags/${tag}`}>#{tag}</a>)}
+  </div>
+</div>
+
+<style lang="scss">
+  .tags {
+    grid-area: tags;
+
+    h3 {
+      text-align: left;
+      font-size: MIN(3.2vw, 24px);
+      color: var(--text);
+      padding: 0 0 MIN(1vw, 7.5px) MIN(1vw, 7.5px);
+    }
+
+    .list {
+      a {
+        display: inline-block;
+        background-color: var(--pine);
+        color: var(--text);
+        font-size: MIN(2vw, 15px);
+        /* font-family: $code; */
+        text-align: center;
+        text-decoration: none;
+        margin: MIN(0.427vw, 3.2px) MIN(0.233vw, 1.6px);
+        padding: MIN(0.8vw, 6.4px) MIN(1.7vw, 12.75px);
+
+        &:hover {
+          color: var(--muted);
+          background-color: var(--foam);
+        }
+      }
+    }
+  }
+</style>
