@@ -3,37 +3,41 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 const pageTitle = "404";
 const adventureQuotes = [
-	"It is pitch black. You are likely to be eaten by a Grue.",
-	"A hollow voice says 'Fool'.",
-	"I have no idea what you're trying to find here.",
-	"We will explore this area later on. We should continue on our quest.",
-	"dead end.",
-	"You were eaten by a Grue.",
-	"Time is an illusion. This page doubly so.",
-	"You are lost in a maze of twisty passages, all alike.",
-	"Oh boy, are we going to try something dangerous now?",
-	"There’s no point in acting surprised about it.",
-	"If I asked you where the hell we were, would I regret it?",
-	"You know, it's at times like this, when I'm trapped in a Vogon airlock with a man from Betelgeuse, and about to die of asphyxiation in deep space that I really wish I'd listened to what my mother told me when I was young.",
-	"We apologize for the inconvenience.",
-	"A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools."
+  "It is pitch black. You are likely to be eaten by a Grue.",
+  "A hollow voice says 'Fool'.",
+  "I have no idea what you're trying to find here.",
+  "We will explore this area later on. We should continue on our quest.",
+  "dead end.",
+  "You were eaten by a Grue.",
+  "Time is an illusion. This page doubly so.",
+  "You are lost in a maze of twisty passages, all alike.",
+  "Oh boy, are we going to try something dangerous now?",
+  "There’s no point in acting surprised about it.",
+  "If I asked you where the hell we were, would I regret it?",
+  "You know, it's at times like this, when I'm trapped in a Vogon airlock with a man from Betelgeuse, and about to die of asphyxiation in deep space that I really wish I'd listened to what my mother told me when I was young.",
+  "We apologize for the inconvenience.",
+  "A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools.",
 ];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <main>
-	<section>
+    <section>
       <h1>404</h1>
-	  <h2>{adventureQuotes[Math.floor(Math.random()*adventureQuotes.length)]}</h2>
-      <h3>Go back to the <a class="start" href="/" rel="prefetch">start</a>.</h3>
-	</section>
+      <h2>
+        {adventureQuotes[Math.floor(Math.random() * adventureQuotes.length)]}
+      </h2>
+      <h3>
+        Go back to the <a class="start" href="/" rel="prefetch">start</a>.
+      </h3>
+    </section>
   </main>
 </BaseLayout>
 
 <style lang="scss">
   main {
     min-height: 100vh;
-	
+
     section {
       position: absolute;
       top: 25%;
@@ -45,7 +49,7 @@ const adventureQuotes = [
         font-size: clamp(8rem, 24vw, 20rem);
         text-align: center;
         margin: 0;
-	  }
+      }
 
       h2 {
         text-align: center;
@@ -70,4 +74,3 @@ const adventureQuotes = [
     }
   }
 </style>
->>>>>>> 7ea25cf (feat: 404 page that was more fun to create than the rest)
