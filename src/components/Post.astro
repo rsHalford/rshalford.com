@@ -9,7 +9,7 @@ const { title, description, url, pubDate } = Astro.props;
 ---
 
 <div class="post">
-  <a href={url}>{title} rel="prefetch"</a>
+  <a href={url} rel="prefetch">{title}</a>
   <p class="date">{pubDate}</p>
   <p class="description">{description}</p>
 </div>
