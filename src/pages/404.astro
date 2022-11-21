@@ -18,14 +18,13 @@ const adventureQuotes = [
 	"We apologize for the inconvenience.",
 	"A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools."
 ];
-const randomQuote = adventureQuotes[Math.floor(Math.random()*adventureQuotes.length)];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <main>
 	<section>
       <h1>404</h1>
-	  <h2>{randomQuote}</h2>
+	  <h2>{adventureQuotes[Math.floor(Math.random()*adventureQuotes.length)]}</h2>
       <h3>Go back to the <a class="start" href="/" rel="prefetch">start</a>.</h3>
 	</section>
   </main>
@@ -35,7 +34,7 @@ const randomQuote = adventureQuotes[Math.floor(Math.random()*adventureQuotes.len
   main {
     min-height: 100vh;
 	
-	section {
+    section {
       position: absolute;
       top: 25%;
       left: 50%;
@@ -71,3 +70,4 @@ const randomQuote = adventureQuotes[Math.floor(Math.random()*adventureQuotes.len
     }
   }
 </style>
+>>>>>>> 7ea25cf (feat: 404 page that was more fun to create than the rest)
