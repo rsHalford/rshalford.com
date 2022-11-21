@@ -4,6 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import image from "@astrojs/image";
 import prefetch from "@astrojs/prefetch";
+import compress from "astro-compress";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,5 +27,6 @@ export default defineConfig({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
     prefetch(),
+    compress(),
   ],
 });
