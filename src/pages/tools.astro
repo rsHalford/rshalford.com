@@ -2,16 +2,21 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Profile from "@components/Profile.astro";
 
-const pageTitle = "The tools I use";
+const pageTitle = "Tools I use";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <main>
     <section class="tools">
       <h1>{pageTitle}</h1>
+      <p>
+        Here I will provide a brief overview of what I use on a near-daily
+        basis. With a little background reasoning as to how I ended up where I
+        am
+      </p>
       <div class="software">
-        <h2>Software</h2>
-        <h3>
+        <h2 id="software">Software</h2>
+        <h3 id="operating-system">
           Operating System: <a href="https://nixos.org/" target="_blank"
             >NixOS</a
           >
@@ -37,9 +42,8 @@ const pageTitle = "The tools I use";
             target="_blank">dotfiles repository</a
           > if you would like to check them out and find inspiration.
         </p>
-
-        <h3>
-          IDE/Text Editor: <a href="https://helix-editor.com/" target="_blank"
+        <h3 id="text-editor">
+          Text Editor: <a href="https://helix-editor.com/" target="_blank"
             >Helix</a
           >
         </h3>
@@ -96,9 +100,18 @@ const pageTitle = "The tools I use";
     flex-direction: row;
     gap: 3rem;
     min-height: 100vh;
+
     section {
       h1 {
         margin-bottom: 1rem;
+      }
+
+      h2 {
+        margin: 0;
+      }
+
+      h3 {
+        margin: 0.5rem 0 1rem;
       }
     }
   }
