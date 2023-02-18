@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 const { frontmatter } = Astro.props;
-const { minutesRead } = Astro.props.frontmatter;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
   <main>
-    <p class="detail">{frontmatter.pubDate} - {minutesRead}</p>
+    <p class="detail">
+      {frontmatter.author} - {frontmatter.pubDate.toString()}
+    </p>
     <h1>{frontmatter.title}</h1>
     {frontmatter.tags.map((tag: string) => <p class="tags">#{tag}</p>)}
     <article>

@@ -1,28 +1,26 @@
 import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 
-function sortPosts(a, b) {
-  return (
-    Number(new Date(b.frontmatter.pubDate)) -
-    Number(new Date(a.frontmatter.pubDate))
-  );
+function sortEntries(a, b) {
+  return Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate));
 }
 
-export const get = () => {
-  const allPosts = Object.values(import.meta.globEager("./**/*.{md,mdx}"));
-  const sortedPosts = allPosts.sort((a, b) => sortPosts(a, b));
+export async function get() {
+  const blogEntries = await getCollection("blog");
+  const sortedEntries = blogEntries.sort((a, b) => sortEntries(a, b));
 
   return rss({
     title: "Richard Halford's Blog",
     description:
       "Latest blog posts published to rshalford.com, mainly about software",
     site: "https://www.rshalford.com",
-    items: sortedPosts.map((post) => ({
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
-      pubDate: post.frontmatter.pubDate,
-      link: post.url,
+    items: sortedEntries.map((post) => ({
+      title: post.data.title,
+      description: post.data.description,
+      pubDate: post.data.pubDate,
+      link: `/blog/${post.slug}/`,
     })),
-    cusomtData: `<language>en-gb</language>`,
+    customData: `<language>en-gb</language>`,
     stylesheet: "/rss/style.xsl",
   });
-};
+}

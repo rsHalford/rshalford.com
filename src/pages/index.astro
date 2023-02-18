@@ -1,13 +1,15 @@
 ---
+import { getCollection } from "astro:content";
+
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Post from "@components/Post.astro";
 import Profile from "@components/Profile.astro";
 
-const allPosts = await Astro.glob("../pages/posts/*.{md,mdx}");
-const nonDraft = allPosts.filter((post) => !post.frontmatter.draft);
-const sortedPosts = nonDraft.sort((a, b): any => {
-  return Date.parse(b.frontmatter.pubDate) - Date.parse(a.frontmatter.pubDate);
-});
+const blogEntries = (
+  await getCollection("blog", ({ data }) => {
+    return data.draft !== true;
+  })
+).sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 
 const pageTitle = "Richard Halford's blog";
 ---
@@ -17,12 +19,16 @@ const pageTitle = "Richard Halford's blog";
     <section class="blog">
       <h1>{pageTitle}</h1>
       {
-        sortedPosts.map((post: any) => (
+        blogEntries.map((post) => (
           <Post
-            title={post.frontmatter.title}
-            description={post.frontmatter.description}
-            url={post.url}
-            pubDate={post.frontmatter.pubDate}
+            draft={post.data.draft}
+            title={post.data.title}
+            description={post.data.description}
+            author={post.data.author}
+            tags={post.data.tags}
+            footnote={post.data.footnote}
+            canonicalURL={`/blog/${post.slug}`}
+            pubDate={post.data.pubDate}
           />
         ))
       }

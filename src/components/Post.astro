@@ -1,15 +1,13 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-  url: string;
-  pubDate: string;
-}
-const { title, description, url, pubDate } = Astro.props;
+import type { CollectionEntry } from "astro:content";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, pubDate, canonicalURL } = Astro.props;
 ---
 
 <div class="post">
-  <a href={url} rel="prefetch">{title}</a>
+  <a href={canonicalURL} rel="prefetch">{title}</a>
   <p class="date">{pubDate}</p>
   <p class="description">{description}</p>
 </div>
