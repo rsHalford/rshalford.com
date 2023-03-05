@@ -47,19 +47,17 @@ import publicKey from "@assets/publickey.txt";
 
 <style lang="scss">
   aside {
-    margin-top: 1rem;
+    margin: 1rem auto 0;
     width: 17rem;
 
     .profile {
-      grid-area: profile;
       display: block;
       margin: 0 auto;
-      border-radius: 0.5rem;
+      border-radius: 0.3rem;
       filter: drop-shadow(0 0.2rem 0.1rem #1f1d2e);
     }
 
     .locations {
-      grid-area: locations;
       display: grid;
       grid-template-columns: auto 1fr;
       grid-gap: 0.2rem 1rem;
@@ -77,9 +75,40 @@ import publicKey from "@assets/publickey.txt";
     }
   }
 
-  @media screen and (max-width: 636px) {
+  @media screen and (max-width: 636px) and (min-width: 501px) {
     aside {
-      display: none;
+      margin-top: 0;
+      width: 95vw;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "profile locations"
+        "small small";
+      column-gap: 1rem;
+
+      .profile {
+        grid-area: profile;
+        margin: 0;
+      }
+
+      .locations {
+        grid-area: locations;
+      }
+
+      small {
+        grid-area: small;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    aside {
+      margin-top: 0;
+      width: 85vw;
+
+      .locations {
+        font-size: 0.8rem;
+      }
     }
   }
 </style>
