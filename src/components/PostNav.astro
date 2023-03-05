@@ -1,0 +1,51 @@
+---
+const { prevPost, nextPost } = Astro.props;
+---
+
+<nav>
+  <ul>
+    {
+      prevPost.data && (
+        <li>
+          <a class="prev entry" rel="prev" href={`/blog/${prevPost.slug}`}>
+            {prevPost.data.title}&nbsp;<span>&#10230</span>
+          </a>
+        </li>
+      )
+    }
+    {
+      nextPost.data && (
+        <li>
+          <a class="next entry" rel="next" href={`/blog/${nextPost.slug}`}>
+            <span>&#10229</span>&nbsp;{nextPost.data.title}
+          </a>
+        </li>
+      )
+    }
+  </ul>
+</nav>
+
+<style lang="scss">
+  nav {
+    margin-top: 5rem;
+
+    ul {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: center;
+      list-style-type: none;
+      margin-left: 0;
+      padding-left: 0;
+      column-gap: 3rem;
+
+      li {
+        margin-bottom: 0;
+
+        span {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+</style>

@@ -1,18 +1,20 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
-const { frontmatter } = Astro.props;
+import PostNav from "@components/PostNav.astro";
+const { post, prevPost, nextPost } = Astro.props;
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={post.title}>
   <main>
     <p class="detail">
-      {frontmatter.author} - {frontmatter.pubDate.toString()}
+      {post.author} - {post.pubDate.toString()}
     </p>
-    <h1>{frontmatter.title}</h1>
-    {frontmatter.tags.map((tag: string) => <p class="tags">#{tag}</p>)}
+    <h1>{post.title}</h1>
+    {post.tags.map((tag: string) => <p class="tags">#{tag}</p>)}
     <article>
       <slot />
     </article>
+    <PostNav {prevPost} {nextPost} />
   </main>
 </BaseLayout>
 
