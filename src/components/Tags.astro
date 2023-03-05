@@ -25,15 +25,15 @@ const { tags } = Astro.props;
     h3 {
       text-align: left;
       font-size: MIN(3.2vw, 24px);
-      color: var(--text);
+      color: rgb(var(--text));
       padding: 0 0 MIN(1vw, 7.5px) MIN(1vw, 7.5px);
     }
 
     .list {
       a {
         display: inline-block;
-        background-color: var(--pine);
-        color: var(--text);
+        background-color: rgb(var(--pine));
+        color: rgb(var(--text));
         font-size: MIN(2vw, 15px);
         /* font-family: $code; */
         text-align: center;
@@ -42,8 +42,8 @@ const { tags } = Astro.props;
         padding: MIN(0.8vw, 6.4px) MIN(1.7vw, 12.75px);
 
         &:hover {
-          color: var(--muted);
-          background-color: var(--foam);
+          color: rgb(var(--muted));
+          background-color: rgb(var(--foam));
         }
       }
     }
