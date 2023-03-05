@@ -11,7 +11,7 @@ export default defineConfig({
   markdown: {
     drafts: true,
     shikiConfig: {
-      theme: "rose-pine-moon",
+      theme: "rose-pine",
     },
   },
   integrations: [
