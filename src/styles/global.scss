@@ -164,8 +164,14 @@ ol {
 
 blockquote {
   margin: 0 0 MIN(2vw, 15px) 0;
-  padding-left: MIN(3.2vw, 24px);
+  padding: MIN(1vw, 7.5px) MIN(1vw, 7.5px) MIN(1vw, 7.5px) MIN(3.2vw, 24px);
   border-left: MIN(1.3vw, 9.75px) solid rgb(var(--love));
+  border-radius: 0.3rem;
+  background-color: rgba(var(--love), 0.3);
+
+  p {
+    margin: 0;
+  }
 }
 
 hr {
