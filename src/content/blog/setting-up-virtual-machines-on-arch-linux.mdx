@@ -7,6 +7,15 @@ tags: ["archlinux", "linux", "sysadmin"]
 draft: false
 ---
 
+import image1 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-1.png";
+import image2 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-2.png";
+import image3 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-3.png";
+import image4 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-4.png";
+import image5 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-5.png";
+import image6 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-6.png";
+import image7 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-7.png";
+import image8 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-8.png";
+
 Virtualisation is an incredibly useful tool, even for personal use. Personally, I use virtual machines for different purposes: testing out operating systems or Linux distributions without having to install them to bare metal; install my own software to test compatibility; try out the latest hyped about desktop environment or window manager. And as time goes on, I find more things to add to the list of uses.
 
 > Whilst typing this up, I read about how I can use a virtual Debian install to install (not live load) a Debian distribution onto a USB drive. So I can carry around an operating system with persistent storage, and plug it into any PC.
@@ -30,13 +39,13 @@ Depending on which team you opted to support, the output will vary, but either o
 AMD
 
 ```sh
-Virtualization:                  AMD-V
+Virtualization:  AMD-V
 ```
 
 Intel
 
 ```sh
-Virtualization:                  VT-x
+Virtualization:  VT-x
 ```
 
 With the confirmation that virtualisation is supported, you will probably want to install some packages to make installing and managing VMs a lot more user friendly.
@@ -122,34 +131,57 @@ At first you'll be greeted with an empty list of VMs. To create a new VM, click 
 
 > File > New Virtual Machine
 
-![Open virt-manager](https://i.imgur.com/sbivrYj.png)
+<img src={image1.src} alt="Open virt-manager." />
+
+<br />
 
 Then you will be greeted with a VM creation wizard. For this quick run-through I'm going to create a VM for Debian 11 "Bullseye", from a local install media.
 
-![Create a new virtual machine](https://i.imgur.com/apQl8xa.png)
+<img src={image2.src} alt="Create a new virtual machine." />
+
+<br />
 
 Select the downloaded ISO and find the operating system, if virt-manager does not automatically find it for you.
 
-![Select installation media](https://i.imgur.com/MN0HJt6.png)
+<img src={image3.src} alt="Select installation media." />
+
+<br />
 
 > As Debian 11 is new, I had to choose `Debian testing` manually.
 
 Then choose how much system memory and the number of CPUs you want to give whilst the VM runs.
 
-![Memory and CPU allocation](https://i.imgur.com/r8OjVrS.png)
+<img src={image4.src} alt="Memory and CPU allocation." />
+
+<br />
 
 Then do the same with how much storage you want to provide. This won't automatically take up the given amount. But, sets a cap on the total amount you have made available to it.
 
-![Storage allocation](https://i.imgur.com/HoXtE29.png)
+<img src={image5.src} alt="Storage allocation." />
+
+<br />
 
 Finally, name your VM and select the network solution for it. This tutorial assumed that you would want to provide a virtual network, so that's what has been selected here.
 
-![Name the virtual machine and select virtual network](https://i.imgur.com/jyWpkZb.png)
+<img
+  src={image6.src}
+  alt="Name the virtual machine and select virtual network."
+/>
+
+<br />
 
 Now the new VM will be listed.
 
-![New virtual machine will now be listed in virt-manager](https://i.imgur.com/IIKKkDD.png)
+<img
+  src={image7.src}
+  alt="New virtual machine will now be listed in virt-manager."
+/>
+
+<br />
 
 To start it, select the VM and click on the _play_ button to power it on. Then select _Open_ to view it.
 
-![Debian 11 "Bullseye" running inside a virtual machine](https://i.imgur.com/u2sJSxg.png)
+<img
+  src={image8.src}
+  alt='Debian 11 "Bullseye" running inside a virtual machine.'
+/>

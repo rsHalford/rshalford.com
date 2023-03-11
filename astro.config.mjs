@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import image from "@astrojs/image";
 import prefetch from "@astrojs/prefetch";
 import compress from "astro-compress";
 
@@ -14,15 +13,14 @@ export default defineConfig({
       theme: "rose-pine",
     },
   },
+  experimental: {
+    assets: true,
+  },
   integrations: [
     mdx({
       drafts: true,
     }),
     sitemap(),
-    image({
-      logLevel: "warn",
-      serviceEntryPoint: "@astrojs/image/sharp",
-    }),
     prefetch(),
     compress(),
   ],

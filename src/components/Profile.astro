@@ -1,7 +1,10 @@
 ---
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import profileImage from "@assets/profile.webp";
 import publicKey from "@assets/publickey.txt";
+
+const profileAlt =
+  'Profile picture: a pre-school headshot of me wearing a "Thomas the Tank Engine" knitted jumper in front of a blue cloud background';
 ---
 
 <aside>
@@ -9,8 +12,8 @@ import publicKey from "@assets/publickey.txt";
     class="profile"
     src={profileImage}
     width={192}
-    height={238.45}
-    alt="Profile picture: a pre-school headshot of me wearing a Thomas the Tank Engine knitted jumper in front of a blue cloud background"
+    height={236}
+    alt={profileAlt}
   />
   <dl class="locations">
     <dt>email</dt>
@@ -52,6 +55,8 @@ import publicKey from "@assets/publickey.txt";
 
     .profile {
       display: block;
+      width: 192px;
+      height: 236px;
       margin: 0 auto;
       border-radius: 0.3rem;
       filter: drop-shadow(0 0.2rem 0.1rem #1f1d2e);
@@ -88,6 +93,8 @@ import publicKey from "@assets/publickey.txt";
 
       .profile {
         grid-area: profile;
+        width: 144px;
+        height: 177px;
         margin: 0;
       }
 
@@ -105,6 +112,11 @@ import publicKey from "@assets/publickey.txt";
     aside {
       margin-top: 0;
       width: 85vw;
+
+      .profile {
+        width: 144px;
+        height: 177px;
+      }
 
       .locations {
         font-size: 0.8rem;
