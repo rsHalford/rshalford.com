@@ -11,13 +11,14 @@ const blogEntries = (
   })
 ).sort((a, b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate));
 
-const pageTitle = "Richard Halford's blog";
+const title = "Richard Halford's blog";
+const canonical = true;
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout title={title} canonical={canonical}>
   <main>
     <section class="blog">
-      <h1>{pageTitle}</h1>
+      <h1>{title}</h1>
       {
         blogEntries.map((post) => (
           <Post

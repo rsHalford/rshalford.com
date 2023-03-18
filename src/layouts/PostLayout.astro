@@ -4,7 +4,7 @@ import PostNav from "@components/PostNav.astro";
 const { post, prevPost, nextPost } = Astro.props;
 ---
 
-<BaseLayout pageTitle={post.title}>
+<BaseLayout title={post.title}>
   <main>
     <p class="detail">
       {post.author} - {post.pubDate.toString()}
