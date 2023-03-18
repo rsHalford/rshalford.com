@@ -129,6 +129,7 @@ pre {
   border: 0.15rem solid rgb(var(--pine));
   border-radius: 0.3rem;
   box-shadow: 0 0 0.3rem rgb(var(--pine));
+  margin-bottom: 1.5rem;
   padding: 1rem;
 }
 
@@ -140,7 +141,7 @@ code {
 img {
   display: block;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 1.5rem;
   object-fit: cover;
   border-radius: 0.3rem;
 }
@@ -164,11 +165,46 @@ ol {
 }
 
 blockquote {
-  margin: 0 0 MIN(2vw, 15px) 0;
-  padding: MIN(1vw, 7.5px) MIN(1vw, 7.5px) MIN(1vw, 7.5px) MIN(3.2vw, 24px);
-  border-left: MIN(1.3vw, 9.75px) solid rgb(var(--love));
+  font-style: italic;
+  margin: 0 0 MIN(2vw, 15px);
+  padding: MIN(1vw, 7.5px) MIN(2vw, 15px);
+  border-left: MIN(1.6vw, 12px) solid rgb(var(--hl-high));
   border-radius: 0.3rem;
-  background-color: rgba(var(--love), 0.3);
+  background-color: rgba(var(--hl-high), 0.3);
+
+  p {
+    margin: 0;
+  }
+}
+
+.note {
+  margin: -16px 0 MIN(4vw, 30px);
+  padding: MIN(1vw, 7.5px) MIN(2vw, 15px);
+  border-radius: 0.3rem;
+
+  &.info {
+    border-left: MIN(1.6vw, 12px) solid rgb(var(--pine));
+    background-color: rgba(var(--pine), 0.3);
+
+    .icon {
+      color: rgb(var(--pine));
+    }
+  }
+
+  &.warn {
+    border-left: MIN(1.6vw, 12px) solid rgb(var(--love));
+    background-color: rgba(var(--love), 0.3);
+
+    .icon {
+      color: rgb(var(--love));
+    }
+  }
+
+  .icon {
+    float: right;
+    font-weight: bold;
+    margin: 0 0 MIN(2vw, 15px) MIN(2vw, 15px);
+  }
 
   p {
     margin: 0;

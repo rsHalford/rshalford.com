@@ -15,12 +15,18 @@ import image5 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image
 import image6 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-6.png";
 import image7 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-7.png";
 import image8 from "@assets/blog/setting-up-virtual-machines-on-arch-linux/image-8.png";
+import Note from "@components/Note.astro";
 
 Virtualisation is an incredibly useful tool, even for personal use. Personally, I use virtual machines for different purposes: testing out operating systems or Linux distributions without having to install them to bare metal; install my own software to test compatibility; try out the latest hyped about desktop environment or window manager. And as time goes on, I find more things to add to the list of uses.
 
 > Whilst typing this up, I read about how I can use a virtual Debian install to install (not live load) a Debian distribution onto a USB drive. So I can carry around an operating system with persistent storage, and plug it into any PC.
 
-**Note**: This article will be focussing on how to run virtual machines on **_Arch Linux_**.
+<br />
+
+<Note type="warn">
+  This article will be focussing on how to run virtual machines on **_Arch
+  Linux_**.
+</Note>
 
 ---
 
@@ -56,7 +62,7 @@ With the confirmation that virtualisation is supported, you will probably want t
 $ sudo pacman -S qemu libvirt iptables-nft dnsmasq virt-manager
 ```
 
-> All the below installations in one.
+<Note type="info">All the below installation steps in one line.</Note>
 
 ### QEMU
 
@@ -129,9 +135,9 @@ Once all the above steps have been completed, you may need to reboot your system
 
 At first you'll be greeted with an empty list of VMs. To create a new VM, click on the monitor with the star and play button in the top left.
 
-> File > New Virtual Machine
-
 <img src={image1.src} alt="Open virt-manager." />
+
+<Note type="info">File > New Virtual Machine</Note>
 
 <br />
 
@@ -145,9 +151,9 @@ Select the downloaded ISO and find the operating system, if virt-manager does no
 
 <img src={image3.src} alt="Select installation media." />
 
-<br />
-
-> As Debian 11 is new, I had to choose `Debian testing` manually.
+<Note type="info">
+  As Debian 11 is new, I had to choose `Debian testing` manually.
+</Note>
 
 Then choose how much system memory and the number of CPUs you want to give whilst the VM runs.
 

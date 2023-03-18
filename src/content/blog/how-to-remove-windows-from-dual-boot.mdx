@@ -8,11 +8,13 @@ tags: ["cli", "linux", "sysadmin"]
 draft: false
 ---
 
+import Note from "@components/Note.astro";
+
 Whenever anyone decides to take a dip into the world of Linux, coming from Windows. It's not normally as a straight swap from operating system to operating system. And the distribution you land on using is normally set up in dual-boot.
 
 That's how I got started. Windows paired up with Linux Mint.
 
-> "Because I need Windows to play games."
+> Because I need Windows to play games.
 
 But, with the progress Valve has made with their Proton compatibility layer. I soon realised that I'm never planning on booting Windows up again, and want the storage on my other drive back. So how do we go about removing Windows from a dual-boot system?
 
@@ -77,7 +79,16 @@ So now we know that for this system, Windows is installed on the `/dev/sda` driv
 
 Now we can just delete these partitions and replace it with a single _Linux Filesystem_ partition. And format it to match the _ext4_ type that the rest of this system uses.
 
-**IMPORTANT:** If you have split a single drive into partitions for both Linux and Windows. As in, partitions for Linux and Windows are both under `/dev/sda` **or** `/dev/nvme0n1` and **not** on either drive, like in this tutorial. Make sure to note down the partition numbers for the; _Microsoft reserved_, _Microsoft basic data_, and _Windows recovery environment_ partitions. As you will need to keep the _EFI System_ for Linux to use when booting.
+<br />
+
+<Note type="warn">
+  If you have split a single drive into partitions for both Linux and Windows.
+  As in, partitions for Linux and Windows are both under `/dev/sda` **or**
+  `/dev/nvme0n1` and **not** on either drive, like in this tutorial. Make sure
+  to note down the partition numbers for the; _Microsoft reserved_, _Microsoft
+  basic data_, and _Windows recovery environment_ partitions. As you will need
+  to keep the _EFI System_ for Linux to use when booting.
+</Note>
 
 ## Deleting Windows
 
@@ -85,7 +96,12 @@ To delete the partitions on the `/dev/sda` drive, just pass the path to `fdisk`.
 
 To view all options available, enter `m` and hit return. For deleting partitions, we're just going to use the `d` command. And go through the process of deleting each partition.
 
-> If you want to check the partitions on the drive first, type `p` to print out the partition table.
+<br />
+
+<Note type="info">
+  If you want to check the partitions on the drive first, type `p` to print out
+  the partition table.
+</Note>
 
 ```sh
 $ sudo fdisk /dev/sda
@@ -128,11 +144,18 @@ Do you want to remove the signature? [Y]es/[N]o: Y
 The signature will be removed by a write command.
 ```
 
-Here I just hit enter to input all the default values, to get a partition that was as big as my drive could allow.
+Here I just hit enter to input all the default values, to get a partition that was as big as my drive could allow. Also, notice how `fdisk` automatically selected the _Linux Filesystem_ partition type.
 
-> Also notice how `fdisk` automatically selected the _Linux Filesystem_ partition type. If you want to change this to another, use `l` to view all partition type options, and `t` to change to one.
+<br />
 
-> Just in case you're curious about why the partition defaults to starting at sector 2048 (i.e. 1 MB) I found a good explanation over on [StackOverflow](https://superuser.com/a/1345861)
+<Note type="info">
+  If you want to change this to another, use `l` to view all partition type options, and `t` to change to one.
+
+<br />
+
+Just in case you're curious about why the partition defaults to starting at sector 2048 (i.e. 1 MB) I found a good explanation over on [StackOverflow](https://superuser.com/a/1345861).
+
+</Note>
 
 As this drive will be used to store all of my games, I will only keep this single partition. But the same process with `n` can be repeated to create more if needed.
 
@@ -204,7 +227,10 @@ The most practical option I use as there is no _standard_ place set out for perm
 $ sudo mkdir -p /mnt/games/
 ```
 
-> The `-p` flag options refers to `--parents`, which will make sure to create all parent directories to `games/`. Although `/mnt` should be there anyway.
+<Note type="info">
+  The `-p` flag options refers to `--parents`, which will make sure to create
+  all parent directories to `games/`. Although `/mnt` should be there anyway.
+</Note>
 
 ### Automatically mount on boot
 
@@ -227,7 +253,7 @@ UUID=9a54cd9a-c6af-403a-a32a-cc08c0adc60b       none            swap       defau
 UUID=4149ff1e-bd86-4d4f-940f-c79cc910ded0       /mnt/games      ext4       defaults        0       2
 ```
 
-> Only the bottom two lines were added to this file.
+<Note type="info">Only the bottom two lines were added to this file.</Note>
 
 #### What we did:
 

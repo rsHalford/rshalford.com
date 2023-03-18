@@ -1,0 +1,13 @@
+---
+export interface Props {
+  type: string;
+}
+
+const { type } = Astro.props;
+---
+
+<aside class={`note ${type}`}>
+  {type == "info" && <div class="icon">&#8505;</div>}
+  {type == "warn" && <div class="icon">&#9888;</div>}
+  <slot />
+</aside>

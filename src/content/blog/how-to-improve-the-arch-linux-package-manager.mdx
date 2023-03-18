@@ -17,7 +17,7 @@ Luckily pacman comes with a way to make both of these the case, with no more tha
 
 To make sure pacman produces a colourful output in the terminal. Open up `/etc/pacman.conf` in your editor of choice, with `sudo`/`doas` privileges. Then simply delete the **_#_** before `Color`, under the `# Misc options` sub-heading.
 
-```sh
+```diff
   # Misc options
   #UseSyslog
 - #Color
@@ -39,7 +39,7 @@ Because of reasons beyond the scope of this article (_read: I don't feel like wr
 
 To add this latest feature, you will have to make the following edit, just like with the `Color` option mentioned above.
 
-```sh
+```diff
   # Misc options
   #UseSyslog
   Color
