@@ -4,11 +4,11 @@ import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 
-const { title, canonical } = Astro.props;
+const { title, url, type, description } = Astro.props;
 ---
 
 <html lang="en">
-  <BaseHead title={title} {canonical} />
+  <BaseHead title={title} url={url} type={type} description={description} />
   <body>
     <Header />
 

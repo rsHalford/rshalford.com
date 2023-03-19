@@ -9,6 +9,7 @@ const blogCollection = defineCollection({
     tags: z.array(z.string()),
     footnote: z.string().optional(),
     pubDate: z.string(),
+    content: z.string().default("blog"),
     canonicalURL: z.string().url().optional(),
   }),
 });

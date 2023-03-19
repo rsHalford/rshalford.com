@@ -3,16 +3,20 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Profile from "@components/Profile.astro";
 
 const title = "Tools I use";
+const url = "https://www.rshalford.com/tools";
+const type = "article";
+const description =
+  "A brief overview of what I use on a near-daily basis. With a little background reasoning as to how I ended up where I am.";
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} url={url} type={type} description={description}>
   <main>
     <section class="tools">
       <h1>{title}</h1>
       <p>
         Here I will provide a brief overview of what I use on a near-daily
         basis. With a little background reasoning as to how I ended up where I
-        am
+        am.
       </p>
       <div class="software">
         <h2 id="software">Software</h2>

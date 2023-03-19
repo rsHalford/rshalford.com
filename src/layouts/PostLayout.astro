@@ -1,16 +1,23 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import PostNav from "@components/PostNav.astro";
+
+const type = "article";
 const { post, prevPost, nextPost } = Astro.props;
 ---
 
-<BaseLayout title={post.title}>
+<BaseLayout
+  title={post.data.title}
+  url={`https://www.rshalford.com/${post.data.content}/${post.slug}`}
+  type={type}
+  description={post.data.description}
+>
   <main>
     <p class="detail">
-      {post.author} - {post.pubDate.toString()}
+      {post.data.author} - {post.data.pubDate.toString()}
     </p>
-    <h1>{post.title}</h1>
-    {post.tags.map((tag: string) => <p class="tags">#{tag}</p>)}
+    <h1>{post.data.title}</h1>
+    {post.data.tags.map((tag: string) => <p class="tags">#{tag}</p>)}
     <article>
       <slot />
     </article>
