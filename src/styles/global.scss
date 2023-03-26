@@ -84,12 +84,12 @@ $code: "JetBrains Mono", monospace;
 
 body {
   height: 100vh;
-  max-width: 920px;
+  max-width: 80ch;
   padding: 1rem;
   margin: 0 auto;
   font-size: 16px;
   font-family: $sans;
-  line-height: 1.5;
+  line-height: 1.8;
   background-color: rgb(var(--base));
   color: rgb(var(--text));
   scroll-behavior: smooth;
@@ -165,7 +165,6 @@ ol {
 }
 
 blockquote {
-  font-style: italic;
   margin: 0 0 MIN(2vw, 15px);
   padding: MIN(1vw, 7.5px) MIN(2vw, 15px);
   border-left: MIN(1.6vw, 12px) solid rgb(var(--hl-high));
