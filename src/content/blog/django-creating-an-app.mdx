@@ -1,0 +1,170 @@
+---
+title: "Django: Creating an App"
+pubDate: "2021-04-26"
+description: "Learn about what Django apps are, how they're different from projects, and how to create your own."
+author: "richard"
+tags: ["django", "python"]
+draft: true
+---
+
+import image1 from "@assets/blog/django-creating-an-app/image-1.png";
+import image2 from "@assets/blog/django-creating-an-app/image-2.png";
+
+Continuing from the previous article I posted about [Getting Started with Django](https://www.rshalford.com/blog/django-getting-started). This article will try to explain what Django apps are, and how to create one for your own project.
+
+## Projects vs Apps?
+
+### Django Apps
+
+Django apps are essentially individual feature sets for a website. A few examples of Django apps could be;
+
+- Blog app that helps you create and edit your own articles online.
+- User authentication app, where you can create a login system for your website.
+- Chat app where you can connect users who can then message each other.
+
+The possibilities are endless, but the idea is to create apps that serve one specific purpose. Then you can use that app in other Django projects. For example, your login system app can be plugged into any future Django projects that need user account creation.
+
+### Django Projects
+
+Projects are a collection of apps, and they provide the configurations necessary for the apps to work with each other. As the official Django documentation puts it, "A project can contain multiple apps. An app can be in multiple projects."
+
+There is also a Django apps website [djangopackages.org](https://djangopackages.org). Where you can find apps that other developers have created, that you can add to your project.
+
+---
+
+## Creating the app
+
+First, make sure to be in the correct directory and activate your python virtual environment.
+
+```sh
+$ cd django_project
+django_project $ source project_venv/bin/activate
+django_project (project_venv) $
+```
+
+Now you should be in the same directory as manage.py. To create the app, that we'll call "app".
+
+```sh
+django_project (project_venv) $ python manage.py startapp app
+```
+
+This should have created the app directory, and filled it with the following files.
+
+```sh
+django_project/
+    project_venv/
+    project/
+    app/
+        migrations/
+           __init__.py
+        __init__.py
+        admin.py
+        apps.py
+        models.py
+        tests.py
+        views.py
+```
+
+Before you can use this new app in your project, you must register it in project/settings.py.
+
+```py
+ # Application definition
+
+ INSTALLED_APPS = [
+     'django.contrib.admin',
+     'django.contrib.auth',
+     'django.contrib.contenttypes',
+     'django.contrib.sessions',
+     'django.contrib.messages',
+     'django.contrib.staticfiles',
++    'app'
+ ]
+```
+
+---
+
+## Hello, World!
+
+Getting started with this new app, we _have to_ start with the "Hello, World!" test.
+
+To do this we need to edit the app/views.py file, to define the index function.
+
+```py
+ from django.shortcuts import render
++from django.http import HttpResponse
+
++def index(request):
++    return HttpResponse("Hello, World!")
+```
+
+Then, we have to create an app specific app/urls.py file, that will define the location of this index function.
+
+```sh
+django_project (project_venv) $ cd app/
+app (project_venv) $ touch urls.py
+```
+
+The reason for creating this file, is to keep this a modular app, as mentioned earlier. Making it easier to edit the app when more code gets added, and plug in to future projects.
+
+Add the following to this file.
+
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+```
+
+Finally, we connect the this app view to the project's root URL. By adding this code to the project/urls.py file.
+
+```py
+ . . .
+
+ from django.contrib import admin
+-from django.urls import path
++from django.urls import include, path
+
+ urlpatterns = [
++    path('', include('app.urls')),
+     path('admin/', admin.site.urls),
+ ]
+```
+
+Now you can start the server, by running the following command.
+
+```sh
+$ python manage.py runserver
+```
+
+And you should see a rather plain but working index page like the one below.
+
+<img src={image1.src} alt="Hello, World! Index Page" />
+
+---
+
+## Before we're done
+
+Before summarising what was covered in this article. You might have noticed there is already an "admin" app added to the project/urls.py urlpatterns.
+
+This was created when you ran the command `django-admin startproject project` in [the previous Django tutorial](https://www.rshalford.com/blog/django-getting-started/#creating-the-base-project). And is _technically_ the first user app you installed for your project.
+
+At the moment when you visit the _/admin_ page you'll be greeted with a login screen. But we'll go over Django super-users and project administration in the future.
+
+<img src={image2.src} alt="Django adminisrtation login" />
+
+---
+
+## Summary
+
+After going through this post, you should now;
+
+1. Know the difference between Django projects and apps.
+2. Create your first app, and add it to the project's settings.py file.
+3. Define an index page for your project, by creating a simple "Hello, World!" function.
+4. Add your new web page to the project urlpatterns, and be able to view it on your browser.
+
+Hopefully, you have been able to follow these first few steps for creating and setting up your first Django app. If you have any questions, recommendations or found any errors with this post. Please let me know, in the comments below.
+
+Thank you! ✌
