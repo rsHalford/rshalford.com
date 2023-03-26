@@ -6,7 +6,9 @@ function sortEntries(a, b) {
 }
 
 export async function get() {
-  const blogEntries = await getCollection("blog");
+  const blogEntries = await getCollection("blog", ({ data }) => {
+    return data.draft !== true;
+  });
   const sortedEntries = blogEntries.sort((a, b) => sortEntries(a, b));
 
   return rss({
