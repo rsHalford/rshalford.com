@@ -1,39 +1,41 @@
-// Rose Pine Dawn
+// Dark theme
 :root {
-  --base: 250, 244, 237;
-  --surface: 255, 250, 243;
-  --overlay: 242, 233, 222;
-  --muted: 152, 147, 165;
-  --subtle: 121, 117, 147;
-  --text: 87, 82, 121;
-  --love: 180, 99, 122;
-  --gold: 234, 157, 52;
-  --rose: 215, 130, 126;
-  --pine: 40, 105, 131;
-  --foam: 86, 148, 159;
-  --iris: 144, 122, 169;
-  --hl-low: 244, 237, 232;
-  --hl-med: 223, 218, 217;
-  --hl-high: 206, 202, 205;
+  --background-hard: 25, 23, 36; // #191724
+  --background: 35, 33, 54; // #232136
+  --midground: 42, 39, 63; // #2a273f
+  --foreground: 57, 53, 82; // #393552
+  --text-low: 110, 106, 134; // # 6e6a86
+  --text-medium: 144, 140, 170; // #908caa
+  --text-high: 224, 222, 244; // #e0def4
+  --red: 235, 111, 146; // #eb6f92
+  --green: 62, 143, 176; // #3e8fb0
+  --yellow: 246, 193, 119; // #f6c117
+  --blue: 156, 207, 216; // #9ccfd8
+  --magenta: 196, 167, 231; // #c4a7e7
+  --cyan: 234, 154, 151; // #ea9a97
+  --hl-low: 42, 40, 62; // #2a283e
+  --hl-medium: 68, 65, 90; // #44415a
+  --hl-high: 86, 82, 110; // #56526e
 }
 
-// Rose Pine Moon
-.dark {
-  --base: 35, 33, 54;
-  --surface: 42, 39, 63;
-  --overlay: 57, 53, 82;
-  --muted: 110, 106, 134;
-  --subtle: 144, 140, 170;
-  --text: 224, 222, 244;
-  --love: 235, 111, 146;
-  --gold: 246, 193, 119;
-  --rose: 234, 154, 151;
-  --pine: 62, 143, 176;
-  --foam: 156, 207, 216;
-  --iris: 196, 167, 231;
-  --hl-low: 42, 40, 62;
-  --hl-med: 68, 65, 90;
-  --hl-high: 86, 82, 110;
+// Light theme
+.light {
+  --background-hard: 250, 244, 237; // #f4f4ed
+  --background: 250, 244, 237; // #f4f4ed
+  --midground: 255, 250, 243; // #fffaf3
+  --foreground: 242, 233, 222; // #f2e9e1
+  --text-low: 152, 147, 165; // #9893a5
+  --text-medium: 121, 117, 147; // #797593
+  --text-high: 87, 82, 121; // #575279
+  --red: 180, 99, 122; // #b4637a
+  --green: 40, 105, 131; // #286983
+  --yellow: 234, 157, 52; // #ea9d34
+  --blue: 86, 148, 159; // #56949f
+  --magenta: 144, 122, 169; // #907aa9
+  --cyan: 215, 130, 126; // #d7827e
+  --hl-low: 244, 237, 232; // #f4ede8
+  --hl-medium: 223, 218, 217; // #dfdad9
+  --hl-high: 206, 202, 205; // #cecacd
 }
 
 @font-face {
@@ -70,17 +72,7 @@ $code: "JetBrains Mono", monospace;
 *::before,
 *::after {
   box-sizing: border-box;
-  /*
-  margin: 0;
-  padding: 0;
-  */
 }
-
-/*
-*::-webkit-scrollbar {
-  display: none;
-}
-*/
 
 body {
   height: 100vh;
@@ -90,10 +82,9 @@ body {
   font-size: 16px;
   font-family: $sans;
   line-height: 1.8;
-  background-color: rgb(var(--base));
-  color: rgb(var(--text));
+  background-color: rgb(var(--background));
+  color: rgb(var(--text-high));
   scroll-behavior: smooth;
-  /*scrollbar-width: none;*/
   z-index: 0;
 }
 
@@ -113,7 +104,7 @@ h6 {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: rgb(var(--foam));
+  color: rgb(var(--blue));
 
   &:hover,
   &:focus {
@@ -121,20 +112,20 @@ a {
   }
 
   &:visited {
-    color: rgb(var(--iris));
+    color: rgb(var(--magenta));
   }
 }
 
 pre {
-  border: 0.15rem solid rgb(var(--pine));
+  border: 0.15rem solid rgb(var(--green));
   border-radius: 0.3rem;
-  box-shadow: 0 0 0.3rem rgb(var(--pine));
+  box-shadow: 0 0 0.3rem rgb(var(--green));
   margin-bottom: 1.5rem;
   padding: 1rem;
 }
 
 code {
-  color: rgb(var(--rose));
+  color: rgb(var(--cyan));
   font-family: $code;
 }
 
@@ -182,20 +173,20 @@ blockquote {
   border-radius: 0.3rem;
 
   &.info {
-    border-left: MIN(1.6vw, 12px) solid rgb(var(--pine));
-    background-color: rgba(var(--pine), 0.3);
+    border-left: MIN(1.6vw, 12px) solid rgb(var(--green));
+    background-color: rgba(var(--green), 0.3);
 
     .icon {
-      color: rgb(var(--pine));
+      color: rgb(var(--green));
     }
   }
 
   &.warn {
-    border-left: MIN(1.6vw, 12px) solid rgb(var(--love));
-    background-color: rgba(var(--love), 0.3);
+    border-left: MIN(1.6vw, 12px) solid rgb(var(--red));
+    background-color: rgba(var(--red), 0.3);
 
     .icon {
-      color: rgb(var(--love));
+      color: rgb(var(--red));
     }
   }
 
