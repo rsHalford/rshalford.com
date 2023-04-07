@@ -33,7 +33,11 @@ const { post, prevPost, nextPost } = Astro.props;
 
 <style lang="scss">
   main {
+    min-height: 100vh;
+    max-width: 80ch;
     grid-area: main;
+    padding: 0 1rem;
+    margin: 0 auto;
 
     .detail {
       font-size: 0.9rem;
