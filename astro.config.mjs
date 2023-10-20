@@ -13,9 +13,6 @@ export default defineConfig({
       theme: "rose-pine",
     },
   },
-  experimental: {
-    assets: true,
-  },
   integrations: [
     mdx({
       drafts: true,
