@@ -1,5 +1,6 @@
 // Dark theme
 :root {
+  color-scheme: dark;
   --background-hard: 25, 23, 36; // #191724
   --background: 35, 33, 54; // #232136
   --midground: 42, 39, 63; // #2a273f
@@ -19,23 +20,26 @@
 }
 
 // Light theme
-.light {
-  --background-hard: 250, 244, 237; // #f4f4ed
-  --background: 250, 244, 237; // #f4f4ed
-  --midground: 255, 250, 243; // #fffaf3
-  --foreground: 242, 233, 222; // #f2e9e1
-  --text-low: 152, 147, 165; // #9893a5
-  --text-medium: 121, 117, 147; // #797593
-  --text-high: 87, 82, 121; // #575279
-  --red: 180, 99, 122; // #b4637a
-  --green: 40, 105, 131; // #286983
-  --yellow: 234, 157, 52; // #ea9d34
-  --blue: 86, 148, 159; // #56949f
-  --magenta: 144, 122, 169; // #907aa9
-  --cyan: 215, 130, 126; // #d7827e
-  --hl-low: 244, 237, 232; // #f4ede8
-  --hl-medium: 223, 218, 217; // #dfdad9
-  --hl-high: 206, 202, 205; // #cecacd
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --background-hard: 250, 244, 237; // #f4f4ed
+    --background: 250, 244, 237; // #f4f4ed
+    --midground: 255, 250, 243; // #fffaf3
+    --foreground: 242, 233, 222; // #f2e9e1
+    --text-low: 152, 147, 165; // #9893a5
+    --text-medium: 121, 117, 147; // #797593
+    --text-high: 87, 82, 121; // #575279
+    --red: 180, 99, 122; // #b4637a
+    --green: 40, 105, 131; // #286983
+    --yellow: 234, 157, 52; // #ea9d34
+    --blue: 86, 148, 159; // #56949f
+    --magenta: 144, 122, 169; // #907aa9
+    --cyan: 215, 130, 126; // #d7827e
+    --hl-low: 244, 237, 232; // #f4ede8
+    --hl-medium: 223, 218, 217; // #dfdad9
+    --hl-high: 206, 202, 205; // #cecacd
+  }
 }
 
 @font-face {
@@ -56,7 +60,8 @@
 
 @font-face {
   font-family: "JetBrains";
-  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff"),
+  src:
+    url("/fonts/JetBrainsMono-Regular.woff2") format("woff"),
     url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;

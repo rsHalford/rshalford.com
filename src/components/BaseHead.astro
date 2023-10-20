@@ -116,27 +116,4 @@ const { title, url, type, description } = Astro.props;
   <meta property="og:locale" content="en_GB" />
   <link rel="me" href="https://mastodon.social/@rshalford" />
   {url && <link rel="canonical" href={url} />}
-
-  <script is:inline>
-    const theme = (() => {
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("theme")
-      ) {
-        return localStorage.getItem("theme");
-      }
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "dark";
-      }
-      return "light";
-    })();
-
-    if (theme === "dark") {
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-    }
-
-    window.localStorage.setItem("theme", theme);
-  </script>
 </head>
