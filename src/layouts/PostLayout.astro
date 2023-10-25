@@ -16,7 +16,7 @@ const { post, prevPost, nextPost } = Astro.props;
     <p class="detail">
       {post.data.author} - {post.data.pubDate.toString()}
     </p>
-    <h1>{post.data.title}</h1>
+    <h1 transition:name={post.data.title}>{post.data.title}</h1>
     {
       post.data.tags.map((tag: string) => (
         <a class="tags" href={`/${post.data.content}/tags/${tag}`}>

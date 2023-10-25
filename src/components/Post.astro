@@ -7,7 +7,7 @@ const { title, description, pubDate, canonicalURL } = Astro.props;
 ---
 
 <div class="post">
-  <a href={canonicalURL} rel="prefetch">{title}</a>
+  <a href={canonicalURL} rel="prefetch" transition:name={title}>{title}</a>
   <p class="date">{pubDate}</p>
   <p class="description">{description}</p>
 </div>
