@@ -16,3 +16,12 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## Create Admin
+
+'''sh
+$ iex -S mix
+  iex(1)> email="..."
+  iex(2)> password="..."
+  iex(3)> RSHalford.Accounts.register_admin(%{email: email, password: password})
+'''

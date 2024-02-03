@@ -20,6 +20,7 @@ defmodule RSHalfordWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :rshalford,
+    # NOTE: set to true if running phx.digest for production.
     gzip: false,
     only: RSHalfordWeb.static_paths()
 
