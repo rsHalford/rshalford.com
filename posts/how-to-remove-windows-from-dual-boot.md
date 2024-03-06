@@ -1,0 +1,304 @@
+---
+title: "How to remove Windows from Dual-Boot"
+pubDate: 2021-08-23
+description: "Learn how to remove the Windows operating system from Dual-Boot with Linux core utilities on the command-line."
+author: "richard"
+image:
+tags: ["cli", "linux", "sysadmin"]
+draft: false
+---
+
+import Note from "@components/Note.astro";
+
+Whenever anyone decides to take a dip into the world of Linux, coming from Windows. It's not normally as a straight swap from operating system to operating system. And the distribution you land on using is normally set up in dual-boot.
+
+That's how I got started. Windows paired up with Linux Mint.
+
+> Because I need Windows to play games.
+
+But, with the progress Valve has made with their Proton compatibility layer. I soon realised that I'm never planning on booting Windows up again, and want the storage on my other drive back. So how do we go about removing Windows from a dual-boot system?
+
+---
+
+## Finding Windows
+
+To find out where Windows is installed on your computer, we can use the `fdisk` or `lsblk` command-line utilities.
+
+### List partitions using `sudo fdisk -l`
+
+```sh
+$ sudo fdisk -l
+Disk /dev/nvme0n1: 232.89 GiB, 250059350016 bytes, 488397168 sectors
+Disk model: KINGSTON SA2000M8250G
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 098B466C-F305-8C4E-8229-C0882B81A9A6
+
+Device           Start       End   Sectors   Size Type
+/dev/nvme0n1p1    2048   1128447   1126400   550M EFI System
+/dev/nvme0n1p2 1128448   9517055   8388608     4G Linux swap
+/dev/nvme0n1p3 9517056 488397134 478880079 228.3G Linux filesystem
+
+
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: Samsung SSD 850
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 8BF1E112-9DF8-42A4-B571-E81529CE4C89
+
+Device         Start       End   Sectors   Size Type
+/dev/sda1       2048    206847    204800   100M EFI System
+/dev/sda2     206848    239615     32768    16M Microsoft reserved
+/dev/sda3     239616 975736384 975496769 465.2G Microsoft basic data
+/dev/sda4  975736832 976771071   1034240   505M Windows recovery environment
+```
+
+### List partitions using `lsblk -p`
+
+```sh
+$ lsblk -p
+NAME             MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+/dev/sda           8:0    0 465.8G  0 disk
+├─/dev/sda1        8:1    0   100M  0 part
+├─/dev/sda2        8:2    0    16M  0 part
+├─/dev/sda3        8:3    0 465.2G  0 part
+└─/dev/sda4        8:4    0   505M  0 part
+/dev/nvme0n1     259:0    0 232.9G  0 disk
+├─/dev/nvme0n1p1 259:1    0   550M  0 part
+├─/dev/nvme0n1p2 259:2    0     4G  0 part [SWAP]
+└─/dev/nvme0n1p3 259:3    0 228.3G  0 part /
+```
+
+`fdisk` is a more detailed than the simple output from `lsblk`. Letting us identify the drive that the different Windows partitions are installed on.
+
+So now we know that for this system, Windows is installed on the `/dev/sda` drive and has four partitions; `sda1`, `sda2`, `sda3`, `sda4`. We also know from `fdisk` that the drive has a _GPT_ partition table: `Disklabel type: gpt`.
+
+Now we can just delete these partitions and replace it with a single _Linux Filesystem_ partition. And format it to match the _ext4_ type that the rest of this system uses.
+
+<br />
+
+<Note type="warn">
+  If you have split a single drive into partitions for both Linux and Windows.
+  As in, partitions for Linux and Windows are both under `/dev/sda` **or**
+  `/dev/nvme0n1` and **not** on either drive, like in this tutorial. Make sure
+  to note down the partition numbers for the; _Microsoft reserved_, _Microsoft
+  basic data_, and _Windows recovery environment_ partitions. As you will need
+  to keep the _EFI System_ for Linux to use when booting.
+</Note>
+
+## Deleting Windows
+
+To delete the partitions on the `/dev/sda` drive, just pass the path to `fdisk`. I recommend using `fdisk` as it's readily available, and allows for ease of mind if you think you might have messed up. As everything you do can be undone by hitting `q`, as long as you never write the changes with `w`.
+
+To view all options available, enter `m` and hit return. For deleting partitions, we're just going to use the `d` command. And go through the process of deleting each partition.
+
+<br />
+
+<Note type="info">
+  If you want to check the partitions on the drive first, type `p` to print out
+  the partition table.
+</Note>
+
+```sh
+$ sudo fdisk /dev/sda
+
+Command (m for help): d
+Partition number (1-4, default 4) 4
+
+Partition 4 has been deleted.
+
+Command (m for help): d
+Partition number (1-3, default 3) 3
+
+Partition 3 has been deleted.
+
+Command (m for help): d
+Partition number (1,2, default 2) 2
+
+Partition 2 has been deleted.
+
+Command (m for help): d
+Selected partition 1
+Partition 1 has been deleted.
+```
+
+## Creating a partition
+
+Whilst inside of the `fdisk` utility, we can now create a new partition, using `n`.
+
+```sh
+Command (m for help): n
+Partition number (1-128, default 1):
+First sector (34-976773134, default 2048):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-976773134, default 976773134):
+
+Created a new partition 1 of type 'Linux filesystem' and of size 465.8 GiB.
+Partition #1 contains a vfat signature.
+
+Do you want to remove the signature? [Y]es/[N]o: Y
+
+The signature will be removed by a write command.
+```
+
+Here I just hit enter to input all the default values, to get a partition that was as big as my drive could allow. Also, notice how `fdisk` automatically selected the _Linux Filesystem_ partition type.
+
+<br />
+
+<Note type="info">
+  If you want to change this to another, use `l` to view all partition type options, and `t` to change to one.
+
+<br />
+
+Just in case you're curious about why the partition defaults to starting at sector 2048 (i.e. 1 MB) I found a good explanation over on [StackOverflow](https://superuser.com/a/1345861).
+
+</Note>
+
+As this drive will be used to store all of my games, I will only keep this single partition. But the same process with `n` can be repeated to create more if needed.
+
+If in the future I decide that my games library isn't that big or I want to create a video library. I can resize partition `/dev/sda1` and create new one along side it.
+
+## Writing table changes
+
+After deleting the Windows partitions and creating a new _Linux Filesystem_ partition. This is what the drive will look like when written.
+
+```sh
+Command (m for help): p
+Disk /dev/sda: 465.76 GiB, 500107862016 bytes, 976773168 sectors
+Disk model: Samsung SSD 850
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 8BF1E112-9DF8-42A4-B571-E81529CE4C89
+
+Device     Start       End   Sectors   Size Type
+/dev/sda1   2048 976773134 976771087 465.8G Linux filesystem
+
+Filesystem/RAID signature on partition 1 will be wiped.
+```
+
+To commit these changes and write the table to disk and exit, type in `w` and hit enter.
+
+```sh
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+```
+
+## Formatting the partition
+
+To activate this new partition to be used on my system. I need to format this new partition to be of the same type, _ext4_, by entering the command `sudo mkfs.ext4 /dev/sda1`.
+
+```sh
+$ sudo mkfs.ext4 /dev/sda1
+mke2fs 1.46.4 (18-Aug-2021)
+Discarding device blocks: done
+Creating filesystem with 122096385 4k blocks and 30531584 inodes
+Filesystem UUID: 4149ff1e-bd86-4d4f-940f-c79cc910ded0
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+        102400000
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+
+## Mounting the new partition
+
+Once formatted, the drive partition needs to be mounted, and stay mounted every time the system is booted. To do that, we need to decide where to _permanently_ mount this partition.
+
+### Where to mount the partition
+
+A common directory mentioned is in a `/media` directory. But this is usually associated with removable media, so would be more suitable for my USB devices and CDs.
+
+Typically, the `/mnt` directory is given as such a place. However, this is typically only meant for temporary mounts of storage devices. And if there are any drives already mounted in sub-directories of `/mnt`, then they will be hidden whilst a drive is mounted to `/mnt`.
+
+The most practical option I use as there is no _standard_ place set out for permanent secondary drives, is in a sub-directory of `/mnt`. For example, `/mnt/games`. So lets create a new directory there.
+
+```sh
+$ sudo mkdir -p /mnt/games/
+```
+
+<Note type="info">
+  The `-p` flag options refers to `--parents`, which will make sure to create
+  all parent directories to `games/`. Although `/mnt` should be there anyway.
+</Note>
+
+### Automatically mount on boot
+
+To make sure the system mounts the drive partition `/dev/sda1` in `/mnt/games/` on every boot. Edit the `/etc/fstab` file, which will already contain your current partitions. Using the UUID of the partition, found with the `lsblk -f` command.
+
+```sh
+$ sudo /etc/fstab
+
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system>                                 <dir>           <type>     <options>       <dump>  <pass>
+# /dev/nvme0n1p3
+UUID=05ed8f02-f092-40e5-b72b-38cacce9b370       /               ext4       rw,relatime     0       1
+
+# /dev/nvme0n1p2
+UUID=9a54cd9a-c6af-403a-a32a-cc08c0adc60b       none            swap       defaults        0       0
+
+# /dev/sda1
+UUID=4149ff1e-bd86-4d4f-940f-c79cc910ded0       /mnt/games      ext4       defaults        0       2
+```
+
+<Note type="info">Only the bottom two lines were added to this file.</Note>
+
+#### What we did:
+
+- Used the default of using the file system UUIDs to denote the partition identity.
+- Assigned the mount point directory `/mnt/games`.
+- Given the _default_ options for the partition.
+- Kept dump as 0 to stop automatically backing up the entire drive if you use `dump` (not always pre-installed).
+- Given a pass priority of 2, as the root directory should be checked first at boot time.
+
+### Mount without rebooting
+
+Once the changes have been saved, we can run `sudo mount /mnt/sda1` without having to reboot the computer yet. This will check the `/etc/fstab` file and use it to know to mount `/dev/sda1/` at `/mnt/games`.
+
+Now if we run `lsblk` command, under `MOUNTPOINTS` the file system will be mounted to the correct directory. Meaning that whenever the system is next booted, it will automatically mount to this point.
+
+```sh
+$ lsblk
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda           8:0    0 465.8G  0 disk
+└─sda1        8:1    0 465.8G  0 part /mnt/games
+nvme0n1     259:0    0 232.9G  0 disk
+├─nvme0n1p1 259:1    0   550M  0 part
+├─nvme0n1p2 259:2    0     4G  0 part [SWAP]
+└─nvme0n1p3 259:3    0 228.3G  0 part /
+```
+
+### Giving user privileges
+
+This new file system is still only accessible to the root user, being in the root `/` directory. To change this, run the following `sudo chown -R richard:users /mnt/games`.
+
+## Updating GRUB
+
+At this point we have now removed Windows from the system. The Boot manager, Grub, will now need to be updated. To display the currently installed operating systems on your computer.
+
+```sh
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-linux
+Found initrd image: /boot/initramfs-linux.img
+Found fallback initrd image(s) in /boot:  initramfs-linux-fallback.img
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+Adding boot menu entry for UEFI Firmware Settings ...
+done
+```
+
+Now when you next restart your system, Windows will no longer be an option in the boot menu.

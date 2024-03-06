@@ -1,0 +1,15 @@
+package components
+
+templ Header() {
+	<header class="max-w-[80ch] flex mx-auto p-4">
+		@navigation()
+	</header>
+}
+
+templ navigation() {
+	<nav class="text-xl font-semibold">
+		<a class="text-red-500 visited:text-red-500 pr-2" href="/" rel="prefetch">blog</a>
+		// <a class="text-green-500 visited:text-green-500 pr-2" href="/tools" rel="prefetch">tools</a>
+		// <a class="text-yellow-500 visited:text-yellow-500" href="/rss" rel="prefetch">rss</a>
+	</nav>
+}

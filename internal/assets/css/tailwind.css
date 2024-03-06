@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl;
+  }
+
+  a {
+    @apply hover:underline text-blue-500 visited:text-indigo-700;
+
+  }
+}
+
+@font-face {
+  font-family: "Lexend";
+  src: url("./fonts/lexend.ttf");
+}
+
+@font-face {
+  font-family: "Gelasio";
+  src: url("./fonts/gelaso.ttf");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("./fonts/ibm-plex-mono.ttf");
+}

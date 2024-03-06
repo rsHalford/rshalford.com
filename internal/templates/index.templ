@@ -1,0 +1,27 @@
+package templates
+
+import (
+	md "rshalford/rshalford.com/internal/util/markdown"
+	"rshalford/rshalford.com/internal/templates/layouts"
+	"rshalford/rshalford.com/internal/templates/components"
+)
+
+templ Index(posts []md.Post) {
+	@layouts.Base("https://www.rshalford.com",
+	  "Richard Halford's blog",
+	  "Richard Halford's blog",
+	  "website",
+	) {
+		@components.Header()
+		<main class="min-h-screen max-w-[80ch] flex sm:flex-row flex-col gap-12 mx-auto px-4">
+			<section class="sm:grow">
+				<h1 class="pb-4">Richard Halford's blog</h1>
+				for _, post := range posts {
+					@components.Post(post)
+				}
+			</section>
+			@components.Profile()
+		</main>
+		@components.Footer()
+	}
+}

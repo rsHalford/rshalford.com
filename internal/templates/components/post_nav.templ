@@ -1,0 +1,30 @@
+package components
+
+import (
+	"path"
+
+	md "rshalford/rshalford.com/internal/util/markdown"
+)
+
+templ PostNav(post md.Post, prev, next *md.Post) {
+	<nav class="pt-8">
+		<ul class="flex flex-row-reverse justify-between items-center gap-y-12 list-none">
+			if prev != nil {
+				<li>
+					<a href={ templ.URL(path.Join("/posts/", post.Prev.Frontmatter.Slug)) } rel="prev">
+						{ post.Prev.Frontmatter.Title }
+						&nbsp;<span class="text-lg">&#10230</span>
+					</a>
+				</li>
+			}
+			if next != nil {
+				<li>
+					<a href={ templ.URL(path.Join("/posts/", post.Next.Frontmatter.Slug)) } rel="next">
+						<span class="text-lg">&#10229</span>
+						&nbsp;{ post.Next.Frontmatter.Title }
+					</a>
+				</li>
+			}
+		</ul>
+	</nav>
+}

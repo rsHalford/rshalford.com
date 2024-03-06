@@ -1,0 +1,45 @@
+---
+title: "Using hook scripts with Certbot"
+pubDate: 2021-07-27
+description: "Renewing your SSL certificate with Certbot can result in a domain's servers not applying the updated certificate. This quick post will go through a basic way of reloading services with deploy-hooks."
+author: "richard"
+tags: ["email", "linux", "script", "sysadmin"]
+draft: false
+---
+
+import Note from "@components/Note.astro";
+
+Today there are a number of ways to setup your email server. Regardless of how, you will have to create an SSL certificate for the domain you plan to host your email on. And a common and convenient way of doing this, is through the instruction generator [_Certbot_](https://certbot.eff.org/). A free and open-source (FOSS) tool created by the Electronic Frontier Foundation (EFF).
+
+> Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administered websites to enable HTTPS. Certbot offers domain owners and website administrators a convenient way to move to HTTPS with easy-to-follow, interactive instructions based on your webserver and operating system.
+
+One of my favourite features of Certbot has come from the convenience of automatically checking and renewing my certificates for all the websites I host. Without having to worry whether or not I should log on to my server and manually renew them. Allowing the ability to fetch my email's to read and reply with, from desktop or mobile. And not be told that my email server isn't trusted without an SSL certificate.
+
+A problem I have found regarding the certificate renewals, however, comes from the way the IMAP server (Dovecot in my case) doesn't reload in order to use the updated certificate. Leaving me email-less until I reload the service.
+
+Online you might find the solution to be as simple as issuing `$sudo systemctl reload dovecot`, after Certbot has finished doing it's business. But, when I'm trying to check email on my phone, away from a command-line to `ssh` into. This isn't exactly practical. And I don't want to set a 60 day reminder to just run this command.
+
+Luckily, Certbot comes with the ability to run pre-, post- and deploy-hooks. Simply by adding a shell script to the appropriate folder, found under the `/etc/letsencrypt/renewal-hooks/` directory.
+
+<br />
+
+<Note type="info">
+  Don't forget to make the file executable with the `sudo chmod +x
+  /path/to/file` command.
+</Note>
+
+Just add the following script to a file - named whatever you want - and put it in `/etc/letsencrypt/renewal-hooks/deploy/`.
+
+```sh
+#!/bin/sh
+do
+        if [ "$domain" = mail.example.com ]
+        then
+                systemctl reload dovecot
+        fi
+done
+```
+
+---
+
+Now every time Certbot runs and successfully issues a certificate to the email server's `mail.example.com` domain. This little convenience script will run, and subsequently reload Dovecot, the IMAP server.

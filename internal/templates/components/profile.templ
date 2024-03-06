@@ -1,0 +1,32 @@
+package components
+
+templ Profile() {
+	<aside class="flex-none grid grid-cols-[1fr,1fr] sm:w-60 sm:block max-[420px]:block">
+		<img class="w-36 sm:w-44 mx-auto" src="/static/profile.webp" alt='Profile picture: a pre-school headshot of me wearing a "Thomas the Tank Engine" knitted jumper in front of a blue cloud background'/>
+		<div class="flex max-[420px]:flex-col max-[420px]:items-center">
+			<dl class="inline-grid grid-cols-[auto,1fr] gap-y-2 gap-x-4 py-8 text-sm sm:py-4 max-[420px]:text-xs max-[420px]:py-4">
+				<dt>email</dt>
+				<dd>
+					<a href="mailto:richard@rshalford.com">richard@rshalford.com</a>
+				</dd>
+				<dt>fediverse</dt>
+				<dd>
+					<a href="https://mastodon.social/@rshalford" rel="me">mastodon.social</a>
+				</dd>
+				<dt>source</dt>
+				<dd>
+					<a href="https://github.com/rsHalford">rsHalford</a>
+				</dd>
+				<dt>pgp</dt>
+				<dd>
+					<a href="/static/publickey.txt">5C203EA921A470C0</a>
+				</dd>
+			</dl>
+		</div>
+		<small class="col-span-2">
+			<p class="text-justify">
+				A self-taught software developer who is interested in using Go and Python for developing applications across all platforms. With experience scripting in Bash, creating apps with Flutter, designing frontends with JavaScript. I'm mostly interested in learning new languages and development tools.
+			</p>
+		</small>
+	</aside>
+}

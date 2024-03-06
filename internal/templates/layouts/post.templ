@@ -1,0 +1,29 @@
+package layouts
+
+import (
+	"fmt"
+
+	md "rshalford/rshalford.com/internal/util/markdown"
+	"rshalford/rshalford.com/internal/templates/components"
+)
+
+templ Post(post md.Post, prev, next *md.Post) {
+	@Base("https://www.rshalford.com/"+post.Frontmatter.Slug,
+		"Richard Halford's blog",
+		post.Frontmatter.Description,
+		"article",
+	) {
+		@components.Header()
+		<main class="min-h-screen max-w-[80ch] mx-auto px-4">
+			<p>{ post.Frontmatter.Author } - { fmt.Sprintf(post.Frontmatter.PubDate.Format("2006-01-02")) }</p>
+			<h1 class="pb-4">{ post.Frontmatter.Title }</h1>
+			<!-- <a href="/tags/tag">#{ post.Frontmatter["Tags"] }</a> -->
+			<article class="mx-auto">
+				// TODO: Add markdown formatting to internal/assets/css/tailwind.css
+				@md.Unsafe(post.Content)
+			</article>
+			// TODO: Pass the next and previous posts
+			// @components.PostNav(post, prev, next)
+		</main>
+	}
+}

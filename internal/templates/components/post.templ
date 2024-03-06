@@ -1,0 +1,15 @@
+package components
+
+import (
+	"fmt"
+	"path"
+	md "rshalford/rshalford.com/internal/util/markdown"
+)
+
+templ Post(post md.Post) {
+	<div>
+		<a href={ templ.URL(path.Join("/posts/", post.Frontmatter.Slug)) } rel="prefetch">{ post.Frontmatter.Title }</a>
+		<p class="text-sm">{ fmt.Sprintf(post.Frontmatter.PubDate.Format("2006-01-02")) }</p>
+		<p class="text-sm pb-8">{ post.Frontmatter.Description }</p>
+	</div>
+}
