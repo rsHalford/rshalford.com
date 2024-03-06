@@ -1,0 +1,27 @@
+<main class="min-h-screen max-w-[80ch] mx-auto px-4">
+  <p>post.Frontmatter.Author - post.Frontmatter.PubDate.Format("2006-01-02"))</p>
+  <h1 class="pb-4">post.Frontmatter.Title</h1>
+  <a href="/tags/tag">#post.Frontmatter["Tags"]</a>
+
+  <article class="mx-auto">
+    <!-- TODO: Add markdown formatting to internal/assets/css/tailwind.css -->
+    <%= @inner_content %>
+  </article>
+
+  <nav class="pt-8">
+    <ul class="flex flex-row-reverse justify-between items-center gap-y-12 list-none">
+      <li>
+        <a href="/posts/post.Prev.Frontmatter.Slug" rel="prev">
+          post.Prev.Frontmatter.Title
+          &nbsp;<span class="text-lg">&#10230</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/posts/post.Next.Frontmatter.Slug" rel="next">
+          <span class="text-lg">&#10229</span> &nbsp; post.Next.Frontmatter.Title
+        </a>
+      </li>
+    </ul>
+  </nav>
+</main>

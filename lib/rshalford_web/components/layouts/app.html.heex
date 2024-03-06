@@ -1,6 +1,27 @@
-<main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-2xl">
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
-  </div>
-</main>
+<header class="max-w-[80ch] flex mx-auto p-4">
+  <nav class="text-xl font-semibold">
+    <a class="text-red-500 visited:text-red-500 pr-2" href="/" rel="prefetch">blog</a>
+    <!-- <a class="text-green-500 visited:text-green-500 pr-2" href="/tools" rel="prefetch">tools</a> -->
+        <!-- <a class="text-yellow-500 visited:text-yellow-500" href="/rss" rel="prefetch">rss</a> -->
+  </nav>
+  <.flash_group flash={@flash} />
+</header>
+
+<%= @inner_content %>
+
+<footer class="w-screen bg-gray-300 py-8 px-4">
+  <p class="text-sm text-center">
+    The <a href="https://www.rshalford.com/" rel="prefetch">content</a>
+    on this site is <a
+      href="http://creativecommons.org/licenses/by-sa/4.0/"
+      target="_blank"
+      rel="license noopener noreferrer"
+    >CC BY-SA</a>.
+    With the <a href="https://github.com/rsHalford/rshalford.com">source code</a>
+    being under <a
+      href="https://www.gnu.org/licenses/gpl-3.0.en.html"
+      target="_blank"
+      rel="license noopener noreferrer"
+    >GPL 3.0</a>.
+  </p>
+</footer>

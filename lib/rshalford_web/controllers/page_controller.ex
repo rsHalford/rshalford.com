@@ -1,9 +1,16 @@
 defmodule RSHalfordWeb.PageController do
   use RSHalfordWeb, :controller
 
-  def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home, layout: false)
+  def index(conn, _params) do
+    render(conn, :index, layout: false)
+  end
+
+  def post(conn, _params) do
+    markdown = File.read!("../../../posts/test.md")
+    options = %Earmark.Options{compact_output: false}
+
+    html_doc = Earmark.as_html!(markdown, options)
+
+    render(conn, :post, content: html_doc)
   end
 end
