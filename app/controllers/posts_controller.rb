@@ -1,9 +1,19 @@
 class PostsController < ApplicationController
+  allow_unauthenticated_access only: %i[ index show ]
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = if authenticated?
+      params[:hide_drafts] == "1" ? Post.visible : Post.all
+    else
+      Post.visible
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: "posts", locals: { posts: @posts } }
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -52,7 +62,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to posts_path, status: :see_other, notice: "Post was successfully destroyed." }
+      format.html { redirect_to posts_path, status: :see_other, notice: "Post was successfully deleted." }
       format.json { head :no_content }
     end
   end

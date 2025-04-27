@@ -1,0 +1,16 @@
+<% if @posts.any? %>
+  <div id="posts">
+    <% @posts.each do |post| %>
+      <%= render post %>
+      <p>
+        <%= link_to "Show this post", post, data: { turbo: false } %>
+      </p>
+    <% end %>
+  </div>
+<% else %>
+  <% if params[:hide_drafts] == "1" %>
+    <p>No visible posts. Try unchecking "Hide draft posts".</p>
+  <% else %>
+    <p>No posts found.</p>
+  <% end %>
+<% end %>

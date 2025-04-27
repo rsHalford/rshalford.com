@@ -17,13 +17,45 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%= render "partials/flash" %>
+      <nav>
+        <ul>
+          <% if authenticated? %>
+            <li>
+              <%= link_to "New post", new_post_path %>
+            </li>
+          <% end %>
+          <li>
+            <%= link_to "Posts", posts_path %>
+          </li>
+          <% unless authenticated? %>
+            <li>
+              <%= link_to "Login", new_session_path %>
+            </li>
+          <% else %>
+            <li>
+              <%= button_to "Logout",
+              session_path,
+              method: :delete,
+              class: "logout-btn",
+              form: {
+                class: "logout-form",
+              } %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

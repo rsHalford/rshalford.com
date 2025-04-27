@@ -1,16 +1,19 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Posts" %>
 
 <h1>Posts</h1>
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
+<% if authenticated? %>
+  <%= form_with url: posts_path, method: :get, data: { turbo_frame: "posts" } do %>
+    <label>
+      <%= check_box_tag :hide_drafts,
+      "1",
+      params[:hide_drafts] == "1",
+      onchange: "this.form.requestSubmit()" %>
+      Hide draft posts
+    </label>
   <% end %>
-</div>
+<% end %>
 
-<%= link_to "New post", new_post_path %>
+<%= turbo_frame_tag "posts" do %>
+  <%= render partial: "posts", locals: { posts: @posts } %>
+<% end %>
