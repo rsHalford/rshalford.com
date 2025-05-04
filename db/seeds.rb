@@ -7,4 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+
+50.times do
+  Post.create title: Faker::Name.name, body: Faker::Lorem.paragraph(sentence_count: 2)
+end
+
 User.create! email_address: "dev@rshalford.com", password: "123"
