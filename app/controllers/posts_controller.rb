@@ -4,10 +4,13 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
+    @page = params[:page] || 1
     @posts = if authenticated?
-      params[:hide_drafts] == "1" ? Post.visible : Post.all
+      params[:hide_drafts] == "1" ?
+        Post.visible.page(@page).per(10) :
+        Post.all.page(@page).per(10)
     else
-      Post.visible
+      Post.visible.page(@page).per(10)
     end
 
     respond_to do |format|
