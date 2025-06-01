@@ -1,5 +1,7 @@
 rshalford.com
 
+`bundle config set path vendor/bundle`
+
 # README
 
 This README would normally document whatever steps are necessary to get the
